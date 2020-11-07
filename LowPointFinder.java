@@ -134,7 +134,20 @@ public class LowPointFinder {
             }
         }
     }
-
+    public static void printGrid(int [][]a, int iRow, int iColumn)
+    {
+        for(int i = 0; i <= 9; i++)
+        {
+            for(int p = 0; p <= 9;p++)
+            {
+                if(a[i][p]==0)
+                    System.out.print(". ");
+                else
+                    System.out.print("X ");
+            }
+            System.out.println();
+        }
+    }
     public static void printLowestPoint(Map map, int iRow, int iColumn) {
         // implement this function (and any necessary helper code);
         // replace the ??? with the correct information
@@ -172,8 +185,10 @@ public class LowPointFinder {
         {
             
 
-                
-                int currentValue = map.getAltitude(currentRow, currentColumn);
+                boolean withinBounds = (currentRow>=0)&(currentRow<=9)&(currentColumn>=0)&(currentColumn<=9);
+                int currentValue=0;
+                if(withinBounds)
+                    currentValue = map.getAltitude(currentRow, currentColumn);
                 int topValue = currentValue;
                 int bottomValue = currentValue;
                 int leftValue = currentValue;
@@ -206,6 +221,7 @@ public class LowPointFinder {
 
                 if(legalMoves ==0)
                     finalLocation = true;
+                    
                 
                 int topDifference = topValue-currentValue;
                 int bottomDifference = bottomValue-currentValue;
@@ -236,22 +252,23 @@ public class LowPointFinder {
                 
                 currentRow += list.get(0).getRowAdjustment();
                 currentColumn +=list.get(0).getColAdjustment();
+                withinBounds = (currentRow>=0)&(currentRow<=9)&(currentColumn>=0)&(currentColumn<=9);
                 
+                if(withinBounds)
+                {
                 System.out.println("Future Position = ("+currentRow + ","+currentColumn + ")" + "\t\tFuture Altitude =" + map.getAltitude(currentRow,currentColumn));
-                grid[currentRow][currentColumn]=1;
+                
+                    grid[currentRow][currentColumn]=1;
+                    
+                }else{
+                    finalLocation = true;
+                }
+
                 input.nextLine();
+                printGrid(grid,9,9);
+                
                 map.printMap();
-                for(int i = 0; i <= 9; i++)
-        {
-            for(int p = 0; p <= 9;p++)
-            {
-                if(grid[i][p]==0)
-                    System.out.print(". ");
-                else
-                    System.out.print("X ");
-            }
-            System.out.println();
-        }
+       
 
             }
 
