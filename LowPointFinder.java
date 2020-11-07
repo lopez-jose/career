@@ -36,7 +36,7 @@ import java.util.*;
 
 
 public class LowPointFinder {
-    public class gridPoint{
+    static class gridPoint{
         int rowAdjust;
         int colAdjust;
         int difference;
@@ -51,7 +51,7 @@ public class LowPointFinder {
             rowAdjust = row;
             colAdjust = col;
         }
-
+    
         public int getRowAdjustment()
         {
             return rowAdjust;
@@ -68,7 +68,7 @@ public class LowPointFinder {
         {
             return difference;
         }
-
+    
     }
     public static class Map {
         // do not change anything in the Map class
@@ -184,20 +184,20 @@ public class LowPointFinder {
                 int bottomDifference = currentValue - bottomValue;
                 int leftDifference = currentValue -leftValue;
                 int rightDifference = currentValue - rightValue;
-                //LowPointFinder.gridPoint top = new LowPointFinder.gridPoint(0,0,0);
-                /*
+
+               
                 gridPoint top = new gridPoint(-1,0,topDifference);
                 gridPoint bottom = new gridPoint(1,0,bottomDifference);
                 gridPoint left = new gridPoint(0,-1,leftDifference);
                 gridPoint right = new gridPoint(0,1,rightDifference);
                 
-                list.add(topDifference);
-                list.add(bottomDifference);
-                list.add(leftDifference);
-                list.add(rightDifference);
-                Collections.sort(list);
+                list.add(top);
+                list.add(bottom);
+                list.add(left);
+                list.add(right);
+                //Collections.sort(list);
                 System.out.println("Sorted List: " + list);
-                */
+                
 
 
                 
