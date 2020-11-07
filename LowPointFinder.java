@@ -51,9 +51,17 @@ public class LowPointFinder {
         {
             return rowAdjust;
         }
-        public void setDiffernce(int difference)
+        public int getColAdjustment()
+        {
+            return colAdjust;
+        }
+        public void setDifference(int difference)
         {
             this.difference = difference;
+        }
+        public int getDifference()
+        {
+            return difference;
         }
 
     }
