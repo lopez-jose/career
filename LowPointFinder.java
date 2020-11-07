@@ -159,8 +159,7 @@ public class LowPointFinder {
         */
         ArrayList <gridPoint> list = new ArrayList<gridPoint>();
        
-            if(currentRow>1 && currentRow<10 && currentColumn >1 && currentRow<10)
-            {
+            
                 
 
                 
@@ -192,6 +191,7 @@ public class LowPointFinder {
                 int rightDifference = rightValue-currentValue;
 
                
+                //have to adjust this so that it doesn't continously add new points
                 gridPoint top = new gridPoint(-1,0,topDifference);
                 gridPoint bottom = new gridPoint(1,0,bottomDifference);
                 gridPoint left = new gridPoint(0,-1,leftDifference);
@@ -209,19 +209,19 @@ public class LowPointFinder {
                 {
                     System.out.println(list.get(i).getDifference());
                 }
-                System.out.println("Position ("+currentRow + ","+currentColumn + ")" + "");
+                System.out.println("Current Position = ("+currentRow + ","+currentColumn + ")" + "Current Altitude =" + map.getAltitude(currentRow, currentColumn));
                 
                 currentRow += list.get(0).getRowAdjustment();
                 currentColumn +=list.get(0).getColAdjustment();
                 
-                System.out.println("Position ("+currentRow + ","+currentColumn + ")");
+                System.out.println("Next Position = ("+currentRow + ","+currentColumn + ")" + "Current Altitude =" + map.getAltitude(currentRow,currentColumn));
                 
 
 
 
                 
                 
-            }
+            
 
         
     }
@@ -231,9 +231,9 @@ public class LowPointFinder {
         Map map = new Map(10, 10, 0);
         map.printMap();
         // From original call
-        // printLowestPoint(map, 1, 9);
+        printLowestPoint(map, 1, 9);
 
-        printLowestPoint(map, 2, 2);
+        //printLowestPoint(map, 2, 2);
 
     }
 }
