@@ -39,15 +39,21 @@ public class LowPointFinder {
     public class gridPoint{
         int rowAdjust;
         int colAdjust;
-        int age;
+        int difference;
 
-        public void setAge()
+        public void setPosition(int row, int col)
         {
-
+            rowAdjust = row;
+            colAdjust = col;
         }
-        public int getRowAdjust()
+
+        public int getRowAdjustment()
         {
-            return 0;
+            return rowAdjust;
+        }
+        public void setDiffernce(int difference)
+        {
+            this.difference = difference;
         }
 
     }
