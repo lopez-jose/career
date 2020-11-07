@@ -138,6 +138,12 @@ public class LowPointFinder {
     public static void printLowestPoint(Map map, int iRow, int iColumn) {
         // implement this function (and any necessary helper code);
         // replace the ??? with the correct information
+
+        int[][]grid = new int[10][10];
+
+
+        
+
         System.out.println("The lowest reachable point occurs at "
                            +" ??? "+", "+" ??? "
                            +" with an altitude of "+" ??? ");
@@ -165,6 +171,7 @@ public class LowPointFinder {
         while(!finalLocation)
         {
             
+
                 
                 int currentValue = map.getAltitude(currentRow, currentColumn);
                 int topValue = currentValue;
@@ -226,11 +233,25 @@ public class LowPointFinder {
                 }
                 System.out.println("Current Position = ("+currentRow + ","+currentColumn + ")" + "\tCurrent Altitude =" + map.getAltitude(currentRow, currentColumn) + "\tLegal Moves = " + legalMoves);
                 
+                
                 currentRow += list.get(0).getRowAdjustment();
                 currentColumn +=list.get(0).getColAdjustment();
                 
                 System.out.println("Future Position = ("+currentRow + ","+currentColumn + ")" + "\t\tFuture Altitude =" + map.getAltitude(currentRow,currentColumn));
+                grid[currentRow][currentColumn]=1;
                 input.nextLine();
+                map.printMap();
+                for(int i = 0; i <= 9; i++)
+        {
+            for(int p = 0; p <= 9;p++)
+            {
+                if(grid[i][p]==0)
+                    System.out.print(". ");
+                else
+                    System.out.print("X ");
+            }
+            System.out.println();
+        }
 
             }
 
@@ -246,9 +267,9 @@ public class LowPointFinder {
         Map map = new Map(10, 10, 0);
         map.printMap();
         // From original call
-        printLowestPoint(map, 1, 9);
+        //printLowestPoint(map, 1, 9);
 
-        //printLowestPoint(map, 2, 2);
+        printLowestPoint(map, 2, 2);
 
     }
 }
