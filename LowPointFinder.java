@@ -91,10 +91,25 @@ public class LowPointFinder {
                            +" with an altitude of "+" ??? ");
 
         System.out.println(iRow + " " + iColumn);
+        boolean lowest = false;
+        int currentRow = iRow;
+        int currentColumn = iColumn;
+        while(!lowest)
+        {
+            if(currentRow>1 && currentRow<10 && currentColumn >1 && currentRow<10)
+            {
+                System.out.println()
+            }
+
+        }
     }
     public static void main(String args[]) {
+        int rowCount;
+
         Map map = new Map(10, 10, 0);
         map.printMap();
-        printLowestPoint(map, 1, 9);
+        //printLowestPoint(map, 1, 9);
+
+        
     }
 }
