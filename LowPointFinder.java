@@ -178,10 +178,11 @@ public class LowPointFinder {
                 //Location to the right
                 System.out.println(rightValue);
                 */
+                
                 int topDifference = topValue-currentValue;
-                int bottomDifference = currentValue - bottomValue;
-                int leftDifference = currentValue -leftValue;
-                int rightDifference = currentValue - rightValue;
+                int bottomDifference = bottomValue-currentValue;
+                int leftDifference = leftValue-currentValue;
+                int rightDifference = rightValue-currentValue;
 
                
                 gridPoint top = new gridPoint(-1,0,topDifference);
