@@ -40,7 +40,12 @@ public class LowPointFinder {
         int rowAdjust;
         int colAdjust;
         int difference;
-
+        public gridPoint(int rowAdjust,int colAdjust, int difference)
+        {
+            this.rowAdjust = rowAdjust;
+            this.colAdjust = colAdjust;
+            this.difference = difference;
+        }
         public void setPosition(int row, int col)
         {
             rowAdjust = row;
@@ -153,7 +158,7 @@ public class LowPointFinder {
                 R++,C
 
         */
-          //  List list = new ArrayList<>();
+        ArrayList <gridPoint> list = new ArrayList<gridPoint>();
         //hello
         //helloo
             if(currentRow>1 && currentRow<10 && currentColumn >1 && currentRow<10)
@@ -179,7 +184,13 @@ public class LowPointFinder {
                 int bottomDifference = currentValue - bottomValue;
                 int leftDifference = currentValue -leftValue;
                 int rightDifference = currentValue - rightValue;
+                //LowPointFinder.gridPoint top = new LowPointFinder.gridPoint(0,0,0);
                 /*
+                gridPoint top = new gridPoint(-1,0,topDifference);
+                gridPoint bottom = new gridPoint(1,0,bottomDifference);
+                gridPoint left = new gridPoint(0,-1,leftDifference);
+                gridPoint right = new gridPoint(0,1,rightDifference);
+                
                 list.add(topDifference);
                 list.add(bottomDifference);
                 list.add(leftDifference);
@@ -203,6 +214,7 @@ public class LowPointFinder {
         map.printMap();
         // From original call
         // printLowestPoint(map, 1, 9);
+
         printLowestPoint(map, 2, 2);
 
     }
