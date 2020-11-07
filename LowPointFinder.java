@@ -195,6 +195,10 @@ public class LowPointFinder {
                 list.add(bottom);
                 list.add(left);
                 list.add(right);
+
+                //Now the list will be sorted based on the difference property. 
+                // The one with the lowest distance will be selected
+                //Collections.sort(list)
                 //Collections.sort(list);
                 System.out.println("Sorted List: " + list);
                 
