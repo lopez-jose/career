@@ -7,7 +7,7 @@
 
    If there are multiple points with the same lowest altitude that can be reached, select
    the path that encounters the steepest drop at the point of divergence. If each of the
-   paths start out with the same drop in altitude, compare the drop at the next step of
+   paths start out with the same drop in altitude, compare the drop at the next step ofT
    each route (and if those are the same, continue comparing until a difference is found).
    If there is more than one path with the exact same ending altitude and same drops
    along the way, favor points whose row is closest to R0; with points along the same row,
@@ -30,25 +30,52 @@ Implement printLowestPoint to correctly print the answer.
 */
 
 import java.util.Random;
+import java.util.*;
+
+
+
 
 public class LowPointFinder {
+    public class gridPoint{
+        int rowAdjust;
+        int colAdjust;
+        int age;
+
+        public void setAge()
+        {
+
+        }
+        public int getRowAdjust()
+        {
+            return 0;
+        }
+
+    }
     public static class Map {
         // do not change anything in the Map class
         private int mGrid[][] = null;
-        public int getNumRows() { return mGrid.length; }
-        public int getNumColumns() { return mGrid[0].length; }
+
+        public int getNumRows() {
+            return mGrid.length;
+        }
+
+        public int getNumColumns() {
+            return mGrid[0].length;
+        }
+
         public int getAltitude(int iRow, int iColumn) {
             return mGrid[iRow][iColumn];
         }
+
         public void printMap() {
             StringBuilder sbRow = new StringBuilder("    ");
             for (int i = 0; i < mGrid[0].length; i++) {
-                String strCell = String.format("%4s", "C"+i);
+                String strCell = String.format("%4s", "C" + i);
                 sbRow.append(strCell);
             }
             System.out.println(sbRow.toString());
             for (int i = 0; i < mGrid.length; i++) {
-                String strCell = String.format("%4s", "R"+i);
+                String strCell = String.format("%4s", "R" + i);
                 sbRow = new StringBuilder(strCell);
                 for (int j = 0; j < mGrid[0].length; j++) {
                     strCell = String.format("%4d", getAltitude(i, j));
@@ -57,9 +84,11 @@ public class LowPointFinder {
                 System.out.println(sbRow.toString());
             }
         }
+
         private int changeAltitude(int iAltitude, Random random) {
             return iAltitude + random.nextInt(11) - 5;
         }
+
         public Map(int iNumRows, int iNumColumns, int iRandomSeed) {
             mGrid = new int[iNumRows][iNumColumns];
             Random random = new Random(iRandomSeed);
@@ -70,19 +99,23 @@ public class LowPointFinder {
                         iAltitude = random.nextInt(101);
                     } else {
                         int iSideAltitude = 0;
-                        if (j == 0) iSideAltitude = random.nextInt(101);
-                        else iSideAltitude = getAltitude(i, j-1);
-                        int iTopAltitude = getAltitude(i-1, j);
-                        iAltitude = (changeAltitude(iSideAltitude, random)
-                                     + changeAltitude(iTopAltitude, random))/2;
-                        if (iAltitude < 0) iAltitude = 0;
-                        else if (iAltitude > 100) iAltitude = 100;
+                        if (j == 0)
+                            iSideAltitude = random.nextInt(101);
+                        else
+                            iSideAltitude = getAltitude(i, j - 1);
+                        int iTopAltitude = getAltitude(i - 1, j);
+                        iAltitude = (changeAltitude(iSideAltitude, random) + changeAltitude(iTopAltitude, random)) / 2;
+                        if (iAltitude < 0)
+                            iAltitude = 0;
+                        else if (iAltitude > 100)
+                            iAltitude = 100;
                     }
                     mGrid[i][j] = iAltitude;
                 }
             }
         }
     }
+
     public static void printLowestPoint(Map map, int iRow, int iColumn) {
         // implement this function (and any necessary helper code);
         // replace the ??? with the correct information
@@ -90,26 +123,72 @@ public class LowPointFinder {
                            +" ??? "+", "+" ??? "
                            +" with an altitude of "+" ??? ");
 
-        System.out.println(iRow + " " + iColumn);
+        System.out.println("Current Position = ("+iRow + "," + iColumn + ")");
+
+        System.out.println("Current altitude = " + map.getAltitude(iRow,iColumn));
         boolean lowest = false;
         int currentRow = iRow;
         int currentColumn = iColumn;
-        while(!lowest)
-        {
+
+        /* In a grid
+
+                R--,C
+
+        R,C--    R,C     R,C++
+
+                R++,C
+
+        */
+          //  List list = new ArrayList<>();
+        
             if(currentRow>1 && currentRow<10 && currentColumn >1 && currentRow<10)
             {
-                System.out.println()
+                
+                int currentValue = map.getAltitude(currentRow, currentColumn);
+                int topValue = map.getAltitude(currentRow-1,currentColumn);
+                int bottomValue = map.getAltitude(currentRow+1, currentColumn);
+                int leftValue = map.getAltitude(currentRow, currentColumn-1);
+                int rightValue = map.getAltitude(currentRow, currentColumn+1);
+
+
+                //Location above
+                System.out.println(map.getAltitude(currentRow-1, currentColumn));
+                //Location below
+                System.out.println(map.getAltitude(currentRow+1, currentColumn));
+                //Location to the left
+                System.out.println(map.getAltitude(currentRow, currentColumn-1));
+                //Location to the right
+                System.out.println(map.getAltitude(currentRow, currentColumn+1));
+                
+                int topDifference = currentValue -topValue;
+                int bottomDifference = currentValue - bottomValue;
+                int leftDifference = currentValue -leftValue;
+                int rightDifference = currentValue - rightValue;
+                /*
+                list.add(topDifference);
+                list.add(bottomDifference);
+                list.add(leftDifference);
+                list.add(rightDifference);
+                Collections.sort(list);
+                System.out.println("Sorted List: " + list);
+                */
+
+
+                
+                
             }
 
-        }
+        
     }
+
     public static void main(String args[]) {
         int rowCount;
 
         Map map = new Map(10, 10, 0);
         map.printMap();
-        //printLowestPoint(map, 1, 9);
+        // From original call
+        // printLowestPoint(map, 1, 9);
+        printLowestPoint(map, 2, 2);
 
-        
     }
 }
