@@ -161,7 +161,7 @@ public class LowPointFinder {
        
             
         boolean finalLocation = false;
-           
+        Scanner input = new Scanner(System.in);
         while(!finalLocation)
         {
             
@@ -230,7 +230,7 @@ public class LowPointFinder {
                 currentColumn +=list.get(0).getColAdjustment();
                 
                 System.out.println("Future Position = ("+currentRow + ","+currentColumn + ")" + "\t\tFuture Altitude =" + map.getAltitude(currentRow,currentColumn));
-            
+                input.nextLine();
 
             }
 
