@@ -7,7 +7,7 @@
 
    If there are multiple points with the same lowest altitude that can be reached, select
    the path that encounters the steepest drop at the point of divergence. If each of the
-   paths start out with the same drop in altitude, compare the drop at the next step ofT
+   paths start out with the same drop in altitude, compare the drop at the next step of
    each route (and if those are the same, continue comparing until a difference is found).
    If there is more than one path with the exact same ending altitude and same drops
    along the way, favor points whose row is closest to R0; with points along the same row,
@@ -134,16 +134,18 @@ public class LowPointFinder {
             }
         }
     }
-    public static void printGrid(int [][]a, int iRow, int iColumn)
+    public static void printGrid(Map map, int [][]a, int iRow, int iColumn)
     {
+        System.out.println("C0  C1  C2  C3  C4  C5  C6  C7  C8 C9");
         for(int i = 0; i <= 9; i++)
         {
+            System.out.print("R"+i);
             for(int p = 0; p <= 9;p++)
             {
                 if(a[i][p]==0)
-                    System.out.print(". ");
+                    System.out.print(".   ");
                 else
-                    System.out.print("X ");
+                    System.out.print(map.getAltitude(i,p) + "  ");
             }
             System.out.println();
         }
@@ -184,7 +186,7 @@ public class LowPointFinder {
         while(!finalLocation)
         {
             
-
+            grid[currentRow][currentColumn]=1;
                 boolean withinBounds = (currentRow>=0)&(currentRow<=9)&(currentColumn>=0)&(currentColumn<=9);
                 int currentValue=0;
                 if(withinBounds)
@@ -219,6 +221,7 @@ public class LowPointFinder {
                     legalMoves++;
                 }
 
+                System.out.println("Top Altitude ="+ topValue + "\tBottom Altitude =" + bottomValue + "Left Altitude ="+ leftValue  + "\tRight Altitude= " + rightValue);
                 if(legalMoves ==0)
                     finalLocation = true;
                     
@@ -254,20 +257,22 @@ public class LowPointFinder {
                 currentColumn +=list.get(0).getColAdjustment();
                 withinBounds = (currentRow>=0)&(currentRow<=9)&(currentColumn>=0)&(currentColumn<=9);
                 
-                if(withinBounds)
+                if(withinBounds && grid[currentRow][currentColumn]==0)
                 {
                 System.out.println("Future Position = ("+currentRow + ","+currentColumn + ")" + "\t\tFuture Altitude =" + map.getAltitude(currentRow,currentColumn));
                 
-                    grid[currentRow][currentColumn]=1;
+                    
                     
                 }else{
                     finalLocation = true;
+                    System.out.println("End while loop");
                 }
-
-                input.nextLine();
-                printGrid(grid,9,9);
-                
                 map.printMap();
+                input.nextLine();
+                printGrid(map, grid,9,9);
+
+                
+                
        
 
             }
@@ -285,8 +290,8 @@ public class LowPointFinder {
         map.printMap();
         // From original call
         //printLowestPoint(map, 1, 9);
-
-        printLowestPoint(map, 2, 2);
+        printLowestPoint(map,5,4);
+        //printLowestPoint(map, 2, 2);
 
     }
 }
