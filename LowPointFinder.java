@@ -160,8 +160,11 @@ public class LowPointFinder {
         ArrayList <gridPoint> list = new ArrayList<gridPoint>();
        
             
-                
-
+        boolean finalLocation = false;
+           
+        while(!finalLocation)
+        {
+            
                 
                 int currentValue = map.getAltitude(currentRow, currentColumn);
                 int topValue = currentValue;
@@ -169,22 +172,34 @@ public class LowPointFinder {
                 int leftValue = currentValue;
                 int rightValue = currentValue;
 
+                //Now we will add a move is possible boolean
+                int legalMoves = 0;
+                
+                list.clear();
                 if(currentRow-1>=0)
                 {
                     topValue = map.getAltitude(currentRow-1,currentColumn);
+                    legalMoves++;
                 }
                 if(currentRow+1<=9)
                 {
                     bottomValue = map.getAltitude(currentRow+1, currentColumn);
+                    legalMoves++;
                 }
                 if(currentColumn-1>=0)
                 {
                     leftValue = map.getAltitude(currentRow, currentColumn-1);
+                    legalMoves++;
                 }
                 if(currentColumn+1<=9)
                 {
                     rightValue = map.getAltitude(currentRow, currentColumn+1);
+                    legalMoves++;
                 }
+
+                if(legalMoves ==0)
+                    finalLocation = true;
+                
                 int topDifference = topValue-currentValue;
                 int bottomDifference = bottomValue-currentValue;
                 int leftDifference = leftValue-currentValue;
@@ -209,15 +224,15 @@ public class LowPointFinder {
                 {
                     System.out.println(list.get(i).getDifference());
                 }
-                System.out.println("Current Position = ("+currentRow + ","+currentColumn + ")" + "Current Altitude =" + map.getAltitude(currentRow, currentColumn));
+                System.out.println("Current Position = ("+currentRow + ","+currentColumn + ")" + "\tCurrent Altitude =" + map.getAltitude(currentRow, currentColumn) + "\tLegal Moves = " + legalMoves);
                 
                 currentRow += list.get(0).getRowAdjustment();
                 currentColumn +=list.get(0).getColAdjustment();
                 
-                System.out.println("Next Position = ("+currentRow + ","+currentColumn + ")" + "Current Altitude =" + map.getAltitude(currentRow,currentColumn));
-                
+                System.out.println("Future Position = ("+currentRow + ","+currentColumn + ")" + "\t\tFuture Altitude =" + map.getAltitude(currentRow,currentColumn));
+            
 
-
+            }
 
                 
                 
