@@ -162,12 +162,30 @@ public class LowPointFinder {
             if(currentRow>1 && currentRow<10 && currentColumn >1 && currentRow<10)
             {
                 
-                int currentValue = map.getAltitude(currentRow, currentColumn);
-                int topValue = map.getAltitude(currentRow-1,currentColumn);
-                int bottomValue = map.getAltitude(currentRow+1, currentColumn);
-                int leftValue = map.getAltitude(currentRow, currentColumn-1);
-                int rightValue = map.getAltitude(currentRow, currentColumn+1);
 
+                
+                int currentValue = map.getAltitude(currentRow, currentColumn);
+                int topValue = currentValue;
+                int bottomValue = currentValue;
+                int leftValue = currentValue;
+                int rightValue = currentValue;
+
+                if(currentRow-1>=0)
+                {
+                    topValue = map.getAltitude(currentRow-1,currentColumn);
+                }
+                if(currentRow+1<=9)
+                {
+                    bottomValue = map.getAltitude(currentRow+1, currentColumn);
+                }
+                if(currentColumn-1>=0)
+                {
+                    leftValue = map.getAltitude(currentRow, currentColumn-1);
+                }
+                if(currentColumn+1<=9)
+                {
+                    rightValue = map.getAltitude(currentRow, currentColumn+1);
+                }
                 int topDifference = topValue-currentValue;
                 int bottomDifference = bottomValue-currentValue;
                 int leftDifference = leftValue-currentValue;
