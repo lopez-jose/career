@@ -31,7 +31,7 @@ Implement printLowestPoint to correctly print the answer.
 
 import java.util.Random;
 import java.util.*;
-
+import static java.util.Comparator.comparing;
 
 
 
@@ -145,7 +145,6 @@ public class LowPointFinder {
         System.out.println("Current Position = ("+iRow + "," + iColumn + ")");
 
         System.out.println("Current altitude = " + map.getAltitude(iRow,iColumn));
-        boolean lowest = false;
         int currentRow = iRow;
         int currentColumn = iColumn;
 
@@ -159,8 +158,7 @@ public class LowPointFinder {
 
         */
         ArrayList <gridPoint> list = new ArrayList<gridPoint>();
-        //hello
-        //helloo
+       
             if(currentRow>1 && currentRow<10 && currentColumn >1 && currentRow<10)
             {
                 
@@ -170,17 +168,17 @@ public class LowPointFinder {
                 int leftValue = map.getAltitude(currentRow, currentColumn-1);
                 int rightValue = map.getAltitude(currentRow, currentColumn+1);
 
-
+                /*
                 //Location above
-                System.out.println(map.getAltitude(currentRow-1, currentColumn));
+                System.out.println(topValue);
                 //Location below
-                System.out.println(map.getAltitude(currentRow+1, currentColumn));
+                System.out.println(bottomValue);
                 //Location to the left
-                System.out.println(map.getAltitude(currentRow, currentColumn-1));
+                System.out.println(leftValue);
                 //Location to the right
-                System.out.println(map.getAltitude(currentRow, currentColumn+1));
-                
-                int topDifference = currentValue -topValue;
+                System.out.println(rightValue);
+                */
+                int topDifference = topValue-currentValue;
                 int bottomDifference = currentValue - bottomValue;
                 int leftDifference = currentValue -leftValue;
                 int rightDifference = currentValue - rightValue;
@@ -201,7 +199,13 @@ public class LowPointFinder {
                 //Collections.sort(list)
                 //Collections.sort(list);
                 System.out.println("Sorted List: " + list);
-                
+                Collections.sort(list,comparing(gridPoint::getDifference));
+
+                for(int i =0; i < list.size();i++)
+                {
+                    System.out.println(list.get(i).getDifference());
+                }
+                System.out.println("Sorted List: " + list);
 
 
                 
