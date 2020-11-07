@@ -168,17 +168,6 @@ public class LowPointFinder {
                 int leftValue = map.getAltitude(currentRow, currentColumn-1);
                 int rightValue = map.getAltitude(currentRow, currentColumn+1);
 
-                /*
-                //Location above
-                System.out.println(topValue);
-                //Location below
-                System.out.println(bottomValue);
-                //Location to the left
-                System.out.println(leftValue);
-                //Location to the right
-                System.out.println(rightValue);
-                */
-                
                 int topDifference = topValue-currentValue;
                 int bottomDifference = bottomValue-currentValue;
                 int leftDifference = leftValue-currentValue;
@@ -194,19 +183,22 @@ public class LowPointFinder {
                 list.add(bottom);
                 list.add(left);
                 list.add(right);
-
-                //Now the list will be sorted based on the difference property. 
-                // The one with the lowest distance will be selected
-                //Collections.sort(list)
-                //Collections.sort(list);
-                System.out.println("Sorted List: " + list);
+                
+                //Sorts the list according to the value of getDifference()
                 Collections.sort(list,comparing(gridPoint::getDifference));
 
                 for(int i =0; i < list.size();i++)
                 {
                     System.out.println(list.get(i).getDifference());
                 }
-                System.out.println("Sorted List: " + list);
+                System.out.println("Position ("+currentRow + ","+currentColumn + ")" + "");
+                
+                currentRow += list.get(0).getRowAdjustment();
+                currentColumn +=list.get(0).getColAdjustment();
+                
+                System.out.println("Position ("+currentRow + ","+currentColumn + ")");
+                
+
 
 
                 
@@ -217,7 +209,6 @@ public class LowPointFinder {
     }
 
     public static void main(String args[]) {
-        int rowCount;
 
         Map map = new Map(10, 10, 0);
         map.printMap();
