@@ -152,7 +152,7 @@ public class LowPointFinder {
     public static void printLowestPoint(Map map, int iRow, int iColumn) {
         // implement this function (and any necessary helper code);
         // replace the ??? with the correct information
-
+        
         int[][] grid = new int[10][10];
 
         System.out.println("Current Position = (" + iRow + "," + iColumn + ")");
@@ -166,7 +166,7 @@ public class LowPointFinder {
         boolean finalLocation = false;
         Scanner input = new Scanner(System.in);
         while (!finalLocation) {
-
+            
             grid[currentRow][currentColumn] = 1;
             boolean withinBounds = (currentRow >= 0) & (currentRow <= 9) & (currentColumn >= 0) & (currentColumn <= 9);
             int currentAltitude = 0;
@@ -233,11 +233,7 @@ public class LowPointFinder {
                     + map.getAltitude(currentRow, currentColumn) + "\tLegal Moves = " + legalMoves);
             int tempRow = currentRow;
             int tempColumn = currentColumn;
-            for(int i = 0; i < 4;i++)
-            {
-                if(list.get(i).getDifference()<=0)
-                    printLowestPoint(map,tempRow+list.get(i).getRowAdjustment(),tempColumn+list.get(i).getColAdjustment());
-            }
+            
             tempRow += list.get(0).getRowAdjustment();
             tempColumn += list.get(0).getColAdjustment();
             withinBounds = (tempRow >= 0) & (tempRow <= 9) & (tempColumn >= 0) & (tempColumn <= 9);
