@@ -33,43 +33,41 @@ import java.util.Random;
 import java.util.*;
 import static java.util.Comparator.comparing;
 
-
-
 public class LowPointFinder {
-    static class gridPoint{
+    static class gridPoint {
         int rowAdjust;
         int colAdjust;
         int difference;
-        public gridPoint(int rowAdjust,int colAdjust, int difference)
-        {
+
+        public gridPoint(int rowAdjust, int colAdjust, int difference) {
             this.rowAdjust = rowAdjust;
             this.colAdjust = colAdjust;
             this.difference = difference;
         }
-        public void setPosition(int row, int col)
-        {
+
+        public void setPosition(int row, int col) {
             rowAdjust = row;
             colAdjust = col;
         }
-    
-        public int getRowAdjustment()
-        {
+
+        public int getRowAdjustment() {
             return rowAdjust;
         }
-        public int getColAdjustment()
-        {
+
+        public int getColAdjustment() {
             return colAdjust;
         }
-        public void setDifference(int difference)
-        {
+
+        public void setDifference(int difference) {
             this.difference = difference;
         }
-        public int getDifference()
-        {
+
+        public int getDifference() {
             return difference;
         }
-    
+
     }
+
     public static class Map {
         // do not change anything in the Map class
         private int mGrid[][] = null;
@@ -134,147 +132,135 @@ public class LowPointFinder {
             }
         }
     }
-    public static void printGrid(Map map, int [][]a, int iRow, int iColumn)
-    {
+
+    public static void printGrid(Map map, int[][] a, int iRow, int iColumn) {
 
         System.out.println("Current path taken.");
         System.out.println("      C0  C1  C2  C3  C4  C5  C6  C7  C8 C9");
-        for(int i = 0; i <= 9; i++)
-        {
-            System.out.print("  R"+i + "  ");
-            for(int p = 0; p <= 9;p++)
-            {
-                if(a[i][p]==0)
+        for (int i = 0; i <= 9; i++) {
+            System.out.print("  R" + i + "  ");
+            for (int p = 0; p <= 9; p++) {
+                if (a[i][p] == 0)
                     System.out.print(".   ");
                 else
-                    System.out.print(map.getAltitude(i,p) + "  ");
+                    System.out.print(map.getAltitude(i, p) + "  ");
             }
             System.out.println();
         }
     }
+
     public static void printLowestPoint(Map map, int iRow, int iColumn) {
         // implement this function (and any necessary helper code);
         // replace the ??? with the correct information
 
-        int[][]grid = new int[10][10];
+        int[][] grid = new int[10][10];
 
+        System.out.println("Current Position = (" + iRow + "," + iColumn + ")");
 
-        
-
-        System.out.println("The lowest reachable point occurs at "
-                           +" ??? "+", "+" ??? "
-                           +" with an altitude of "+" ??? ");
-
-        System.out.println("Current Position = ("+iRow + "," + iColumn + ")");
-
-        System.out.println("Current altitude = " + map.getAltitude(iRow,iColumn));
+        System.out.println("Current altitude = " + map.getAltitude(iRow, iColumn));
         int currentRow = iRow;
         int currentColumn = iColumn;
 
-        ArrayList <gridPoint> list = new ArrayList<gridPoint>();
-       
-            
+        ArrayList<gridPoint> list = new ArrayList<gridPoint>();
+
         boolean finalLocation = false;
         Scanner input = new Scanner(System.in);
-        while(!finalLocation)
-        {
-            
-            grid[currentRow][currentColumn]=1;
-                boolean withinBounds = (currentRow>=0)&(currentRow<=9)&(currentColumn>=0)&(currentColumn<=9);
-                int currentAltitude=0;
-                if(withinBounds)
-                    currentAltitude = map.getAltitude(currentRow, currentColumn);
-                int topAltitude = currentAltitude;
-                int bottomAltitude = currentAltitude;
-                int leftAltitude = currentAltitude;
-                int rightAltitude = currentAltitude;
+        while (!finalLocation) {
 
-                //Now we will add a move is possible boolean
-                int legalMoves = 0;
-                
-                list.clear();
-                if(currentRow-1>=0)
-                    topAltitude = map.getAltitude(currentRow-1,currentColumn);
-    
-                if(currentRow+1<=9)
-                    bottomAltitude = map.getAltitude(currentRow+1, currentColumn);
-                    
-                if(currentColumn-1>=0)
-                    leftAltitude = map.getAltitude(currentRow, currentColumn-1);
+            grid[currentRow][currentColumn] = 1;
+            boolean withinBounds = (currentRow >= 0) & (currentRow <= 9) & (currentColumn >= 0) & (currentColumn <= 9);
+            int currentAltitude = 0;
+            if (withinBounds)
+                currentAltitude = map.getAltitude(currentRow, currentColumn);
+            int topAltitude = currentAltitude;
+            int bottomAltitude = currentAltitude;
+            int leftAltitude = currentAltitude;
+            int rightAltitude = currentAltitude;
 
-                if(currentColumn+1<=9)
-                    rightAltitude = map.getAltitude(currentRow, currentColumn+1);
-                    
-                System.out.println("Top Altitude ="+ topAltitude + "\tBottom Altitude =" + bottomAltitude + "Left Altitude ="+ leftAltitude  + "\tRight Altitude= " + rightAltitude);
-                
-                    
-                
-                int topDifference = topAltitude-currentAltitude;
-                int bottomDifference = bottomAltitude-currentAltitude;
-                int leftDifference = leftAltitude-currentAltitude;
-                int rightDifference = rightAltitude-currentAltitude;
-                
-                if(topDifference<0)
-                    legalMoves++;
-                if(bottomDifference<0)
-                    legalMoves++;
-                if(leftDifference<0)
-                    legalMoves++;
-                if(rightDifference<0)
-                    legalMoves++;
+            // Now we will add a move is possible boolean
+            int legalMoves = 0;
 
-                    if(legalMoves ==0)
-                    finalLocation = true;
-                //have to adjust this so that it doesn't continously add new points
-                gridPoint top = new gridPoint(-1,0,topDifference);
-                gridPoint bottom = new gridPoint(1,0,bottomDifference);
-                gridPoint left = new gridPoint(0,-1,leftDifference);
-                gridPoint right = new gridPoint(0,1,rightDifference);
-                
-                list.add(top);
-                list.add(bottom);
-                list.add(left);
-                list.add(right);
-                
-                //Sorts the list according to the value of getDifference()
-                Collections.sort(list,comparing(gridPoint::getDifference));
+            list.clear();
+            if (currentRow - 1 >= 0)
+                topAltitude = map.getAltitude(currentRow - 1, currentColumn);
 
-                for(int i =0; i < list.size();i++)
-                {
-                    System.out.println(list.get(i).getDifference());
-                }
-                System.out.println("Current Position = ("+currentRow + ","+currentColumn + ")" + "\tCurrent Altitude =" + map.getAltitude(currentRow, currentColumn) + "\tLegal Moves = " + legalMoves);
-                
-                
-                currentRow += list.get(0).getRowAdjustment();
-                currentColumn +=list.get(0).getColAdjustment();
-                withinBounds = (currentRow>=0)&(currentRow<=9)&(currentColumn>=0)&(currentColumn<=9);
-                
-                if(withinBounds && grid[currentRow][currentColumn]==0)
-                {
-                System.out.println("Future Position = ("+currentRow + ","+currentColumn + ")" + "\t\tFuture Altitude =" + map.getAltitude(currentRow,currentColumn));
-                
-                    
-                    
-                }else{
-                    finalLocation = true;
-                    System.out.println("End while loop");
-                }
-                map.printMap();
-                input.nextLine();
-                printGrid(map, grid,9,9);
+            if (currentRow + 1 <= 9)
+                bottomAltitude = map.getAltitude(currentRow + 1, currentColumn);
 
-                
-                
-       
+            if (currentColumn - 1 >= 0)
+                leftAltitude = map.getAltitude(currentRow, currentColumn - 1);
 
+            if (currentColumn + 1 <= 9)
+                rightAltitude = map.getAltitude(currentRow, currentColumn + 1);
+
+            System.out.println("Top Altitude =" + topAltitude + "\tBottom Altitude =" + bottomAltitude
+                    + "Left Altitude =" + leftAltitude + "\tRight Altitude= " + rightAltitude);
+
+            int topDifference = topAltitude - currentAltitude;
+            int bottomDifference = bottomAltitude - currentAltitude;
+            int leftDifference = leftAltitude - currentAltitude;
+            int rightDifference = rightAltitude - currentAltitude;
+
+            if (topDifference < 0)
+                legalMoves++;
+            if (bottomDifference < 0)
+                legalMoves++;
+            if (leftDifference < 0)
+                legalMoves++;
+            if (rightDifference < 0)
+                legalMoves++;
+
+            if (legalMoves == 0)
+                finalLocation = true;
+            // have to adjust this so that it doesn't continously add new points
+            gridPoint top = new gridPoint(-1, 0, topDifference);
+            gridPoint bottom = new gridPoint(1, 0, bottomDifference);
+            gridPoint left = new gridPoint(0, -1, leftDifference);
+            gridPoint right = new gridPoint(0, 1, rightDifference);
+
+            list.add(top);
+            list.add(bottom);
+            list.add(left);
+            list.add(right);
+
+            // Sorts the list according to the value of getDifference()
+            Collections.sort(list, comparing(gridPoint::getDifference));
+
+            for (int i = 0; i < list.size(); i++) {
+                System.out.println(list.get(i).getDifference());
             }
+            System.out.println("Current Position = (" + currentRow + "," + currentColumn + ")" + "\tCurrent Altitude ="
+                    + map.getAltitude(currentRow, currentColumn) + "\tLegal Moves = " + legalMoves);
+            int tempRow = currentRow;
+            int tempColumn = currentColumn;
+            for(int i = 0; i < 4;i++)
+            {
+                if(list.get(i).getDifference()<=0)
+                    printLowestPoint(map,tempRow+list.get(i).getRowAdjustment(),tempColumn+list.get(i).getColAdjustment());
+            }
+            tempRow += list.get(0).getRowAdjustment();
+            tempColumn += list.get(0).getColAdjustment();
+            withinBounds = (tempRow >= 0) & (tempRow <= 9) & (tempColumn >= 0) & (tempColumn <= 9);
 
-                
-                
-            
+            if (withinBounds && grid[tempRow][tempColumn] == 0 && legalMoves>0) {
+                System.out.println("Future Position = (" + currentRow + "," + currentColumn + ")"
+                        + "\t\tFuture Altitude =" + map.getAltitude(currentRow, currentColumn));
+                currentRow = tempRow;
+                currentColumn = tempColumn;
 
-        
+            } else {
+                finalLocation = true;
+                System.out.println("End while loop");
+            }
+            map.printMap();
+            input.nextLine();
+            printGrid(map, grid, 9, 9);
+
+        }
+
+        System.out.println(
+                "The lowest reachable point occurs at " + currentRow + ", " + currentColumn+ " with an altitude of " + map.getAltitude(currentRow,currentColumn));
+
     }
 
     public static void main(String args[]) {
@@ -282,9 +268,10 @@ public class LowPointFinder {
         Map map = new Map(10, 10, 0);
         map.printMap();
         // From original call
-        //printLowestPoint(map, 1, 9);
-        printLowestPoint(map,5,4);
-        //printLowestPoint(map, 2, 2);
+        // printLowestPoint(map, 1, 9);
+        //printLowestPoint(map, 5, 4);
+        // printLowestPoint(map, 2, 2);
+        printLowestPoint(map,3,2);
 
     }
 }
