@@ -136,10 +136,12 @@ public class LowPointFinder {
     }
     public static void printGrid(Map map, int [][]a, int iRow, int iColumn)
     {
-        System.out.println("C0  C1  C2  C3  C4  C5  C6  C7  C8 C9");
+
+        System.out.println("Current path taken.");
+        System.out.println("      C0  C1  C2  C3  C4  C5  C6  C7  C8 C9");
         for(int i = 0; i <= 9; i++)
         {
-            System.out.print("R"+i);
+            System.out.print("  R"+i + "  ");
             for(int p = 0; p <= 9;p++)
             {
                 if(a[i][p]==0)
@@ -169,15 +171,6 @@ public class LowPointFinder {
         int currentRow = iRow;
         int currentColumn = iColumn;
 
-        /* In a grid
-
-                R--,C
-
-        R,C--    R,C     R,C++
-
-                R++,C
-
-        */
         ArrayList <gridPoint> list = new ArrayList<gridPoint>();
        
             
@@ -188,50 +181,50 @@ public class LowPointFinder {
             
             grid[currentRow][currentColumn]=1;
                 boolean withinBounds = (currentRow>=0)&(currentRow<=9)&(currentColumn>=0)&(currentColumn<=9);
-                int currentValue=0;
+                int currentAltitude=0;
                 if(withinBounds)
-                    currentValue = map.getAltitude(currentRow, currentColumn);
-                int topValue = currentValue;
-                int bottomValue = currentValue;
-                int leftValue = currentValue;
-                int rightValue = currentValue;
+                    currentAltitude = map.getAltitude(currentRow, currentColumn);
+                int topAltitude = currentAltitude;
+                int bottomAltitude = currentAltitude;
+                int leftAltitude = currentAltitude;
+                int rightAltitude = currentAltitude;
 
                 //Now we will add a move is possible boolean
                 int legalMoves = 0;
                 
                 list.clear();
                 if(currentRow-1>=0)
-                {
-                    topValue = map.getAltitude(currentRow-1,currentColumn);
-                    legalMoves++;
-                }
+                    topAltitude = map.getAltitude(currentRow-1,currentColumn);
+    
                 if(currentRow+1<=9)
-                {
-                    bottomValue = map.getAltitude(currentRow+1, currentColumn);
-                    legalMoves++;
-                }
+                    bottomAltitude = map.getAltitude(currentRow+1, currentColumn);
+                    
                 if(currentColumn-1>=0)
-                {
-                    leftValue = map.getAltitude(currentRow, currentColumn-1);
-                    legalMoves++;
-                }
-                if(currentColumn+1<=9)
-                {
-                    rightValue = map.getAltitude(currentRow, currentColumn+1);
-                    legalMoves++;
-                }
+                    leftAltitude = map.getAltitude(currentRow, currentColumn-1);
 
-                System.out.println("Top Altitude ="+ topValue + "\tBottom Altitude =" + bottomValue + "Left Altitude ="+ leftValue  + "\tRight Altitude= " + rightValue);
-                if(legalMoves ==0)
-                    finalLocation = true;
+                if(currentColumn+1<=9)
+                    rightAltitude = map.getAltitude(currentRow, currentColumn+1);
+                    
+                System.out.println("Top Altitude ="+ topAltitude + "\tBottom Altitude =" + bottomAltitude + "Left Altitude ="+ leftAltitude  + "\tRight Altitude= " + rightAltitude);
+                
                     
                 
-                int topDifference = topValue-currentValue;
-                int bottomDifference = bottomValue-currentValue;
-                int leftDifference = leftValue-currentValue;
-                int rightDifference = rightValue-currentValue;
+                int topDifference = topAltitude-currentAltitude;
+                int bottomDifference = bottomAltitude-currentAltitude;
+                int leftDifference = leftAltitude-currentAltitude;
+                int rightDifference = rightAltitude-currentAltitude;
+                
+                if(topDifference<0)
+                    legalMoves++;
+                if(bottomDifference<0)
+                    legalMoves++;
+                if(leftDifference<0)
+                    legalMoves++;
+                if(rightDifference<0)
+                    legalMoves++;
 
-               
+                    if(legalMoves ==0)
+                    finalLocation = true;
                 //have to adjust this so that it doesn't continously add new points
                 gridPoint top = new gridPoint(-1,0,topDifference);
                 gridPoint bottom = new gridPoint(1,0,bottomDifference);
