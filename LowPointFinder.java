@@ -34,6 +34,7 @@ import java.util.*;
 import static java.util.Comparator.comparing;
 
 public class LowPointFinder {
+    static int[][] grid = new int[10][10];
     static class gridPoint {
         int rowAdjust;
         int colAdjust;
@@ -153,7 +154,7 @@ public class LowPointFinder {
         // implement this function (and any necessary helper code);
         // replace the ??? with the correct information
         
-        int[][] grid = new int[10][10];
+        
 
         System.out.println("Current Position = (" + iRow + "," + iColumn + ")");
 
