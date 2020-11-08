@@ -254,7 +254,7 @@ public class LowPointFinder {
             printGrid(map, grid, 9, 9);
 
         }
-
+        //Test commit
         System.out.println(
                 "The lowest reachable point occurs at " + currentRow + ", " + currentColumn+ " with an altitude of " + map.getAltitude(currentRow,currentColumn));
 
