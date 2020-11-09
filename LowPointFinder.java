@@ -164,7 +164,7 @@ public class LowPointFinder {
         boolean finalLocation = false;
         
         while (!finalLocation) {
-            input.nextLine();
+            
 
             grid[currentRow][currentColumn] = 1;
             boolean withinBounds = (currentRow >= 0) & (currentRow <= 9) & (currentColumn >= 0) & (currentColumn <= 9);
@@ -233,6 +233,9 @@ public class LowPointFinder {
 
             //this is the for loop that get distances of each position surrounding
             //I have a legal moves count
+            printGrid(map, grid, 9, 9);
+            
+            input.nextLine();
             for (int i = 0; i < list.size(); i++) {
                 int altitudeDifference = list.get(i).getDifference();
                 System.out.println("Altitude Difference = " + altitudeDifference);
@@ -253,8 +256,8 @@ public class LowPointFinder {
             withinBounds = (tempRow >= 0) & (tempRow <= 9) & (tempColumn >= 0) & (tempColumn <= 9);
 
             if (withinBounds && grid[tempRow][tempColumn] == 0 && legalMoves>0) {
-                System.out.println("Future Position = (" + currentRow + "," + currentColumn + ")"
-                        + "\t\tFuture Altitude =" + map.getAltitude(currentRow, currentColumn));
+                System.out.println("Future Position = (" + tempRow + "," + tempColumn + ")"
+                        + "\t\tFuture Altitude =" + map.getAltitude(tempRow, tempColumn));
                 currentRow = tempRow;
                 currentColumn = tempColumn;
 
@@ -263,7 +266,7 @@ public class LowPointFinder {
                 System.out.println("End while loop");
             }
             map.printMap();
-            printGrid(map, grid, 9, 9);
+            
 
         }
         
