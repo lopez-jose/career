@@ -215,6 +215,7 @@ public class LowPointFinder {
 
             // Now we will count the possible legal moves
             int legalMoves = 0;
+            //Saves positions of objects
             ArrayList<gridPoint> list = new ArrayList<gridPoint>();
             list.clear();
             printGrid(map, grid, 9, 9);
