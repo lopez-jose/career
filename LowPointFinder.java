@@ -36,6 +36,7 @@ import static java.util.Comparator.comparing;
 public class LowPointFinder {
     static int[][] grid = new int[10][10];
     static Scanner input = new Scanner(System.in);
+    static ArrayList<gridPoint> list = new ArrayList<gridPoint>();
     static class gridPoint {
         int rowAdjust;
         int colAdjust;
@@ -158,12 +159,13 @@ public class LowPointFinder {
         int currentRow = iRow;
         int currentColumn = iColumn;
 
-        ArrayList<gridPoint> list = new ArrayList<gridPoint>();
+        
 
         boolean finalLocation = false;
         
         while (!finalLocation) {
-            
+            input.nextLine();
+
             grid[currentRow][currentColumn] = 1;
             boolean withinBounds = (currentRow >= 0) & (currentRow <= 9) & (currentColumn >= 0) & (currentColumn <= 9);
             int currentAltitude = 0;
@@ -192,8 +194,8 @@ public class LowPointFinder {
             if (currentColumn + 1 <= 9)
                 rightAltitude = map.getAltitude(currentRow, currentColumn + 1);
 
-            System.out.println("Top Altitude =" + topAltitude + "\tBottom Altitude =" + bottomAltitude
-                    + "Left Altitude =" + leftAltitude + "\tRight Altitude= " + rightAltitude);
+            //System.out.println("Top Altitude =" + topAltitude + "\tBottom Altitude =" + bottomAltitude
+                    //+ "Left Altitude =" + leftAltitude + "\tRight Altitude= " + rightAltitude);
 
             int topDifference = topAltitude - currentAltitude;
             int bottomDifference = bottomAltitude - currentAltitude;
@@ -230,13 +232,21 @@ public class LowPointFinder {
                     + map.getAltitude(currentRow, currentColumn) + "\tLegal Moves = " + legalMoves);
 
             //this is the for loop that get distances of each position surrounding
+            //I have a legal moves count
             for (int i = 0; i < list.size(); i++) {
                 int altitudeDifference = list.get(i).getDifference();
                 System.out.println("Altitude Difference = " + altitudeDifference);
+                if(altitudeDifference<=0 && legalMoves>1)
+                {
+                    int row = currentRow+list.get(i).getRowAdjustment();
+                    int col = currentColumn+list.get(i).getColAdjustment();
+                    printLowestPoint(map, row, col);
+                }
             }
             
             int tempRow = currentRow;
             int tempColumn = currentColumn;
+            
             
             tempRow += list.get(0).getRowAdjustment();
             tempColumn += list.get(0).getColAdjustment();
@@ -253,7 +263,6 @@ public class LowPointFinder {
                 System.out.println("End while loop");
             }
             map.printMap();
-            input.nextLine();
             printGrid(map, grid, 9, 9);
 
         }
