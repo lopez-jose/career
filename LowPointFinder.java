@@ -244,7 +244,7 @@ public class LowPointFinder {
             
             for (int i = 0; i < list.size(); i++) {
                 int altitudeDifference = list.get(i).getDifference();
-                System.out.println("Next Position Altitude =" + list.get(i).getAltitude()+ "\tDifference = " + altitudeDifference + "\n\n");
+                //System.out.println("Next Position Altitude =" + list.get(i).getAltitude()+ "\tDifference = " + altitudeDifference + "\n\n");
                 if(altitudeDifference<=0 && legalMoves>1)
                 {
                     
@@ -255,7 +255,7 @@ public class LowPointFinder {
                     if(withinBounds)
                     {
                         boolean isValid = (map.getAltitude(currentRow,currentColumn)>=map.getAltitude(tempRow,tempColumn));
-                        if(isValid)
+                        if(isValid && grid[tempRow][tempColumn]==0)
                             printLowestPoint(map, tempRow, tempColumn);
                     }
                 }
