@@ -258,7 +258,7 @@ public class LowPointFinder {
             ArrayList<gridPoint> list = new ArrayList<gridPoint>();
 
             // Prints visited locations
-            //printGrid(map, grid, 9, 9);
+            //            printGrid(map, grid, 9, 9);
 
             // updates surrounding altitudes if they are within bounds
             // if they are not within bounds then we set the altitude to be 1 greater than
@@ -393,13 +393,13 @@ public class LowPointFinder {
        int low = lowestPoint.getAltitude();
        boolean isEnd = false;
        int i = 1;
-       
+       point origin = new point(iRow,iColumn,map.getAltitude(iRow,iColumn));
        while(!isEnd)
        {
            if(listb.get(i).getAltitude() == low)
            {
                System.out.println("Matching value at = (" +listb.get(i).getRow() + "," + listb.get(i).getCol()+ ")" );
-               lowestPoint = findBestPoint(map,lowestPoint,listb.get(i));
+               lowestPoint = findBestPoint(map,lowestPoint,listb.get(i),origin);
                 
            }else{
                isEnd = true;
@@ -415,28 +415,71 @@ public class LowPointFinder {
 
 
     }
-    public static point findBestPoint(Map map, point a, point b)
+    public static point findBestPoint(Map map, point a, point b,point c)
     {
-        point c = new point(0,0,0);
+        point d = new point(0,0,0);
 
         List<Integer> list1  =new ArrayList <Integer>();
         List<Integer> list2  =new ArrayList <Integer>();
         boolean isEnd = false;
         int rowA = a.getRow();
         int colA = a.getCol();
+        int rowB = b.getRow();
+        int colB = b.getCol();
         int height = a.getAltitude();
-
+        int rowOrigin = c.getRow();
+        int colOrigin = c.getCol();
+        System.out.println("Row A = " + rowA + "Col A = " + colA);
+        System.out.println("Row Origin = " + rowOrigin + "Col Origin = " + colOrigin);
+        list1.add(a.getAltitude());
+        list2.add(b.getAltitude());
+        while(!isEnd)
+        {
+            if(rowA == rowOrigin && colA == colOrigin)
+                break;
             int previousRow = previousPositions[rowA][colA].getRow();
             int previousCol = previousPositions[rowA][colA].getCol();
             System.out.println("Previous row = " + previousRow + "Previous Column = " + previousCol);
             int oldHeight = map.getAltitude(previousRow,previousCol);
             System.out.println(oldHeight);
-        
-        
+            list1.add(oldHeight);
+            rowA = previousRow;
+            colA = previousCol;
 
+        }
+        isEnd = false;
+        while(!isEnd)
+        {
+            if(rowB == rowOrigin && colB == colOrigin)
+                break;
+            int previousRow = previousPositions[rowB][colB].getRow();
+            int previousCol = previousPositions[rowB][colB].getCol();
+            System.out.println("Previous row = " + previousRow + "Previous Column = " + previousCol);
+            int oldHeight = map.getAltitude(previousRow,previousCol);
+            System.out.println(oldHeight);
+            list2.add(oldHeight);
+            rowB = previousRow;
+            colB = previousCol;
 
+        }
 
-        return c;
+        System.out.print("Altitudes for Point a = ");
+        for(int i = 0; i < list1.size();i++)
+        {
+            System.out.print(list1.get(i)+ " ");
+        }   
+        System.out.println();
+
+        System.out.print("Altitudes for Point b = ");
+        for(int i = 0; i < list2.size();i++)
+        {
+            System.out.print(list2.get(i)+ " ");
+        }   
+        System.out.println();
+
+        list1.sort()
+
+        return d;
     }
     public static void main(String args[]) {
 
@@ -459,6 +502,7 @@ public class LowPointFinder {
         //This one has the same ending height for two positions ()
         //findLowestPoint(map,8,3,0,0);
         printLowestPoint(map,8,3);
-       
+        printGrid(map, grid, 9, 9);
+
     }
 }
