@@ -37,6 +37,8 @@ public class LowPointFinder {
     static int[][] grid = new int[10][10];
     static Scanner input = new Scanner(System.in);
     static ArrayList<point> listb = new ArrayList<point>();
+    static pointPosition[][] previousPositions = new pointPosition[10][10];
+    
 
     static class point {
         int row;
@@ -62,6 +64,30 @@ public class LowPointFinder {
         }
     }
 
+    static class pointPosition{
+            int irow;
+            int icol;
+            boolean occupied;
+        public pointPosition(int irow, int icol,boolean occupied)
+        {
+            this.irow = irow;
+            this.icol = icol;
+            this.occupied = occupied;
+            
+        }
+        public int getRow()
+        {
+            return irow;
+        }
+        public int getCol()
+        {
+            return icol;
+        }
+        public boolean getOccupied()
+        {
+            return occupied;
+        }
+    }
     static class gridPoint {
         int rowAdjust;
         int colAdjust;
@@ -182,7 +208,21 @@ public class LowPointFinder {
             System.out.println();
         }
     }
+    public static void printPointGrid(pointPosition[][] a) {
 
+        System.out.println("Current path taken.");
+        System.out.println("      C0  C1  C2  C3  C4  C5  C6  C7  C8 C9");
+        for (int i = 0; i <= 9; i++) {
+            System.out.print("  R" + i + "  ");
+            for (int p = 0; p <= 9; p++) {
+                if (a[i][p].getOccupied() == false)
+                    System.out.print(".   ");
+                else
+                    System.out.print("X   ");
+            }
+            System.out.println();
+        }
+    }
     public static point findLowestPoint(Map map, int iRow, int iColumn) {
         point a = new point(0, 0, 0);
 
@@ -194,7 +234,13 @@ public class LowPointFinder {
         // replace the ??? with the correct information
 
         // final location in terms of
+
+        pointPosition d = new pointPosition(0,0,true);
+        previousPositions[0][0]=d;
+        printPointGrid(previousPositions);
+        
         boolean finalLocation = false;
+        int elevationChange = 0;
         // int currentAltitude = 0 ;
         while (!finalLocation) {
             boolean withinBounds = (iRow >= 0) & (iRow <= 9) & (iColumn >= 0) & (iColumn <= 9);
@@ -337,8 +383,20 @@ public class LowPointFinder {
 
     public static void main(String args[]) {
 
+
+
         Map map = new Map(10, 10, 0);
         map.printMap();
+
+
+        for(int i =0; i <10; i++)
+        {
+            for(int p = 0; p < 10; p++)
+            {
+                pointPosition a = new pointPosition(0,0,false);
+                previousPositions[i][p] = a;
+            }
+        }
         // From original call
         // printLowestPoint(map, 1, 9);
         // printLowestPoint(map, 5, 4);
@@ -350,6 +408,7 @@ public class LowPointFinder {
         System.out
                 .println("The lowest reachable point occurs at " + listb.get(0).getRow() + ", " + listb.get(0).getCol()
                         + " with an altitude of " + map.getAltitude(listb.get(0).getRow(), listb.get(0).getCol()));
+        
 
     }
 }
