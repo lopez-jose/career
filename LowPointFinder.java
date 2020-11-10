@@ -210,15 +210,15 @@ public class LowPointFinder {
     }
     public static void printPointGrid(pointPosition[][] a) {
 
-        System.out.println("Current path taken.");
-        System.out.println("      C0  C1  C2  C3  C4  C5  C6  C7  C8 C9");
+        System.out.println("Previous Positions\n-------------------------");
+        System.out.println("      C0   C1   C2   C3   C4   C5   C6   C7   C8   C9");
         for (int i = 0; i <= 9; i++) {
-            System.out.print("  R" + i + "  ");
+            System.out.print("R" + i + "   ");
             for (int p = 0; p <= 9; p++) {
                 if (a[i][p].getOccupied() == false)
-                    System.out.print("    ");
+                    System.out.print("     ");
                 else
-                    System.out.print(previousPositions[i][p].getRow() + ""+previousPositions[i][p].getCol()+ "  ");
+                    System.out.print(previousPositions[i][p].getRow() + ","+previousPositions[i][p].getCol()+ "  ");
             }
             System.out.println();
         }
