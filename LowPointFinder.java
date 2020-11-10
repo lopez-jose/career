@@ -218,7 +218,7 @@ public class LowPointFinder {
                 if (a[i][p].getOccupied() == false)
                     System.out.print("    ");
                 else
-                    System.out.print(previousPositions[i][p].getRow() + ""+previousPositions[i][p].getCol()+ " ");
+                    System.out.print(previousPositions[i][p].getRow() + ""+previousPositions[i][p].getCol()+ "  ");
             }
             System.out.println();
         }
@@ -230,6 +230,7 @@ public class LowPointFinder {
         // final location in terms of
 
         pointPosition d = new pointPosition(prevRow,prevColumn,true);
+        if(previousPositions[iRow][iColumn].getOccupied()==false)
         previousPositions[iRow][iColumn]=d;
         printPointGrid(previousPositions);
         
@@ -257,7 +258,7 @@ public class LowPointFinder {
             ArrayList<gridPoint> list = new ArrayList<gridPoint>();
 
             // Prints visited locations
-            printGrid(map, grid, 9, 9);
+            //printGrid(map, grid, 9, 9);
 
             // updates surrounding altitudes if they are within bounds
             // if they are not within bounds then we set the altitude to be 1 greater than
@@ -335,8 +336,10 @@ public class LowPointFinder {
                 // if within bounds & new position has not been traversed
                 // then recursively call printLowestPoint using new position
                 if (withinBounds)
-                    if (grid[tempRow][tempColumn] == 0)
+                      if (grid[tempRow][tempColumn] == 0)
                         findLowestPoint(map, tempRow, tempColumn,iRow,iColumn);
+                        if(tempRow == iRow && tempColumn == iColumn)
+                            System.out.println("MATCHED");
 
             }
             tempRow = iRow;
@@ -550,7 +553,7 @@ public class LowPointFinder {
 
         // printLowestPoint(map, 3, 2);
         //printLowestPoint(map, 3, 2);
-        findLowestPoint(map,3,2,3,2);
+        findLowestPoint(map,3,2,0,0);
         Collections.sort(listb, comparing(point::getAltitude));
         System.out
                 .println("The lowest reachable point occurs at " + listb.get(0).getRow() + ", " + listb.get(0).getCol()
