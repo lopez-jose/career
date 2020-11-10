@@ -376,20 +376,8 @@ public class LowPointFinder {
         // iColumn + " with an altitude of "+ map.getAltitude(iRow, iColumn));
 
     }
-
+    
     public static void printLowestPoint(Map map, int iRow, int iColumn) {
-       
-
-    }
-
-    public static void main(String args[]) {
-
-
-
-        Map map = new Map(10, 10, 0);
-        map.printMap();
-
-
         for(int i =0; i <10; i++)
         {
             for(int p = 0; p < 10; p++)
@@ -398,6 +386,67 @@ public class LowPointFinder {
                 previousPositions[i][p] = a;
             }
         }
+       findLowestPoint(map,iRow,iColumn,iRow,iColumn);
+       Collections.sort(listb, comparing(point::getAltitude));
+       point lowestPoint = listb.get(0);
+       
+       int low = lowestPoint.getAltitude();
+       boolean isEnd = false;
+       int i = 1;
+       
+       while(!isEnd)
+       {
+           if(listb.get(i).getAltitude() == low)
+           {
+               System.out.println("Matching value at = (" +listb.get(i).getRow() + "," + listb.get(i).getCol()+ ")" );
+               lowestPoint = findBestPoint(map,lowestPoint,listb.get(i));
+                
+           }else{
+               isEnd = true;
+           }
+           i = i+1;
+       }
+
+       
+       System.out
+               .println("The lowest reachable point occurs at " + listb.get(0).getRow() + ", " + listb.get(0).getCol()
+                       + " with an altitude of " + map.getAltitude(listb.get(0).getRow(), listb.get(0).getCol()));
+       
+
+
+    }
+    public static point findBestPoint(Map map, point a, point b)
+    {
+        point c = new point(0,0,0);
+
+        List<Integer> list1  =new ArrayList <Integer>();
+        List<Integer> list2  =new ArrayList <Integer>();
+        boolean isEnd = false;
+        int rowA = a.getRow();
+        int colA = a.getCol();
+        int height = a.getAltitude();
+
+            int previousRow = previousPositions[rowA][colA].getRow();
+            int previousCol = previousPositions[rowA][colA].getCol();
+            System.out.println("Previous row = " + previousRow + "Previous Column = " + previousCol);
+            int oldHeight = map.getAltitude(previousRow,previousCol);
+            System.out.println(oldHeight);
+        
+        
+
+
+
+        return c;
+    }
+    public static void main(String args[]) {
+
+
+
+        Map map = new Map(10, 10, 0);
+        map.printMap();
+
+
+       
         // From original call
         // printLowestPoint(map, 1, 9);
         // printLowestPoint(map, 5, 4);
@@ -408,27 +457,8 @@ public class LowPointFinder {
         //findLowestPoint(map,1,2,0,0);
 
         //This one has the same ending height for two positions ()
-        findLowestPoint(map,8,3,0,0);
-        Collections.sort(listb, comparing(point::getAltitude));
-        point lowestpoint = listb.get(0);
-        
-        int low = lowestpoint.getAltitude();
-        boolean isEnd = false;
-        int i = 1;
-        while(!isEnd)
-        {
-            if(listb.get(i).getAltitude() == low)
-            {
-                System.out.println("Matching value at = (" +listb.get(i).getRow() + "," + listb.get(i).getCol()+ ")" );
-            }else{
-                isEnd = true;
-            }
-            i = i+1;
-        }
-        System.out
-                .println("The lowest reachable point occurs at " + listb.get(0).getRow() + ", " + listb.get(0).getCol()
-                        + " with an altitude of " + map.getAltitude(listb.get(0).getRow(), listb.get(0).getCol()));
-        
-
+        //findLowestPoint(map,8,3,0,0);
+        printLowestPoint(map,8,3);
+       
     }
 }
