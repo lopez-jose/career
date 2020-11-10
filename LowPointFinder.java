@@ -216,17 +216,163 @@ public class LowPointFinder {
             System.out.print("  R" + i + "  ");
             for (int p = 0; p <= 9; p++) {
                 if (a[i][p].getOccupied() == false)
-                    System.out.print(".   ");
+                    System.out.print("    ");
                 else
-                    System.out.print("X   ");
+                    System.out.print(previousPositions[i][p].getRow() + ""+previousPositions[i][p].getCol()+ " ");
             }
             System.out.println();
         }
     }
-    public static point findLowestPoint(Map map, int iRow, int iColumn) {
-        point a = new point(0, 0, 0);
+    public static void findLowestPoint(Map map, int iRow, int iColumn,int prevRow, int prevColumn) {
+         // implement this function (and any necessary helper code);
+        // replace the ??? with the correct information
 
-        return a;
+        // final location in terms of
+
+        pointPosition d = new pointPosition(prevRow,prevColumn,true);
+        previousPositions[iRow][iColumn]=d;
+        printPointGrid(previousPositions);
+        
+        boolean finalLocation = false;
+        int elevationChange = 0;
+        // int currentAltitude = 0 ;
+        while (!finalLocation) {
+            boolean withinBounds = (iRow >= 0) & (iRow <= 9) & (iColumn >= 0) & (iColumn <= 9);
+            // Sets the current location to be a traversed location
+            grid[iRow][iColumn] = 1;
+            int currentAltitude = 0;
+            if (withinBounds)
+                currentAltitude = map.getAltitude(iRow, iColumn);
+
+            // This takes into account out of bounds values and makes is so that the point
+            int topAltitude = currentAltitude + 1;
+            int bottomAltitude = currentAltitude + 1;
+            int leftAltitude = currentAltitude + 1;
+            int rightAltitude = currentAltitude + 1;
+
+            // Now we will count the possible legal moves
+            int legalMoves = 0;
+
+            // Saves positions of objects
+            ArrayList<gridPoint> list = new ArrayList<gridPoint>();
+
+            // Prints visited locations
+            printGrid(map, grid, 9, 9);
+
+            // updates surrounding altitudes if they are within bounds
+            // if they are not within bounds then we set the altitude to be 1 greater than
+            // currentAltitude
+            // to prevent access of out of bounds locations
+            if (iRow - 1 >= 0)
+                topAltitude = map.getAltitude(iRow - 1, iColumn);
+            else
+                topAltitude = currentAltitude + 1;
+
+            if (iRow + 1 <= 9)
+                bottomAltitude = map.getAltitude(iRow + 1, iColumn);
+            else
+                bottomAltitude = currentAltitude + 1;
+
+            if (iColumn - 1 >= 0)
+                leftAltitude = map.getAltitude(iRow, iColumn - 1);
+            else
+                leftAltitude = currentAltitude + 1;
+
+            if (iColumn + 1 <= 9)
+                rightAltitude = map.getAltitude(iRow, iColumn + 1);
+            else
+                rightAltitude = currentAltitude + 1;
+
+            int topDifference = topAltitude - currentAltitude;
+            int bottomDifference = bottomAltitude - currentAltitude;
+            int leftDifference = leftAltitude - currentAltitude;
+            int rightDifference = rightAltitude - currentAltitude;
+
+            // Adds to legal moves if
+            if (topDifference <= 0)
+                legalMoves++;
+            if (bottomDifference <= 0)
+                legalMoves++;
+            if (leftDifference <= 0)
+                legalMoves++;
+            if (rightDifference <= 0)
+                legalMoves++;
+
+            if (legalMoves == 0) {
+                finalLocation = true;
+
+            }
+
+            gridPoint top = new gridPoint(-1, 0, topDifference, topAltitude);
+            gridPoint bottom = new gridPoint(1, 0, bottomDifference, bottomAltitude);
+            gridPoint left = new gridPoint(0, -1, leftDifference, leftAltitude);
+            gridPoint right = new gridPoint(0, 1, rightDifference, rightAltitude);
+
+            list.add(top);
+            list.add(bottom);
+            list.add(left);
+            list.add(right);
+
+            // Shows current position values
+            System.out.println("Current Position = (" + iRow + "," + iColumn + ")" + "\tCurrent Altitude ="
+                    + map.getAltitude(iRow, iColumn) + "\tLegal Moves = " + legalMoves);
+
+            // temporary variables to hold current position value
+            int tempRow = iRow;
+            int tempColumn = iColumn;
+
+            // Sorts the list in ascending order according to the value of getDifference()
+            Collections.sort(list, comparing(gridPoint::getDifference));
+
+            // checks the values up to legal moves amount
+
+            for (int i = 0; i < legalMoves; i++) {
+                tempRow = iRow + list.get(i).getRowAdjustment();
+                tempColumn = iColumn + list.get(i).getColAdjustment();
+
+                // true if value new location is within bounds
+                withinBounds = (tempRow >= 0) & (tempRow <= 9) & (tempColumn >= 0) & (tempColumn <= 9);
+                // if within bounds & new position has not been traversed
+                // then recursively call printLowestPoint using new position
+                if (withinBounds)
+                    if (grid[tempRow][tempColumn] == 0)
+                        findLowestPoint(map, tempRow, tempColumn,iRow,iColumn);
+
+            }
+            tempRow = iRow;
+            tempColumn = iColumn;
+            // This might cause issues because I get the first item on the list even if it
+            // is not a good move.
+
+            // adjust column final value
+            tempRow += list.get(0).getRowAdjustment();
+            tempColumn += list.get(0).getColAdjustment();
+            boolean isValid = false;
+
+            withinBounds = (tempRow >= 0) & (tempRow <= 9) & (tempColumn >= 0) & (tempColumn <= 9);
+            if (withinBounds)
+                isValid = (map.getAltitude(iRow, iColumn) >= map.getAltitude(tempRow, tempColumn));
+            else
+                isValid = false;
+            if (withinBounds && grid[tempRow][tempColumn] == 0 && legalMoves > 0 && isValid) {
+                // System.out.println("Future Position = (" + tempRow + "," + tempColumn + ")" +
+                // "\t\tFuture Altitude =" + map.getAltitude(tempRow, tempColumn));
+                iRow = tempRow;
+                iColumn = tempColumn;
+
+            } else {
+                finalLocation = true;
+                // System.out.println("End while loop");
+            }
+            // map.printMap();
+
+        }
+        point a = new point(iRow, iColumn, map.getAltitude(iRow, iColumn));
+        listb.add(a);
+        System.out.println("Done");
+        // System.out.println("The lowest reachable point occurs at " + iRow + ", " +
+        // iColumn + " with an altitude of "+ map.getAltitude(iRow, iColumn));
+
     }
 
     public static void printLowestPoint(Map map, int iRow, int iColumn) {
@@ -235,8 +381,8 @@ public class LowPointFinder {
 
         // final location in terms of
 
-        pointPosition d = new pointPosition(0,0,true);
-        previousPositions[0][0]=d;
+        pointPosition d = new pointPosition(iRow,iColumn,true);
+        previousPositions[iRow][iColumn]=d;
         printPointGrid(previousPositions);
         
         boolean finalLocation = false;
@@ -403,7 +549,8 @@ public class LowPointFinder {
         // printLowestPoint(map, 2, 2);
 
         // printLowestPoint(map, 3, 2);
-        printLowestPoint(map, 3, 2);
+        //printLowestPoint(map, 3, 2);
+        findLowestPoint(map,3,2,3,2);
         Collections.sort(listb, comparing(point::getAltitude));
         System.out
                 .println("The lowest reachable point occurs at " + listb.get(0).getRow() + ", " + listb.get(0).getCol()
