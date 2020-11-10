@@ -394,6 +394,7 @@ public class LowPointFinder {
        boolean isEnd = false;
        int i = 1;
        point origin = new point(iRow,iColumn,map.getAltitude(iRow,iColumn));
+       System.out.println("Lowest point row = " + lowestPoint.getRow() + "Lowest Point Column = " + lowestPoint.getCol());
        while(!isEnd)
        {
            if(listb.get(i).getAltitude() == low)
@@ -406,11 +407,12 @@ public class LowPointFinder {
            }
            i = i+1;
        }
-
+       int lowRow = lowestPoint.getRow();
+       int lowCol = lowestPoint.getCol();
        
        System.out
-               .println("The lowest reachable point occurs at " + listb.get(0).getRow() + ", " + listb.get(0).getCol()
-                       + " with an altitude of " + map.getAltitude(listb.get(0).getRow(), listb.get(0).getCol()));
+               .println("The lowest reachable point occurs at " + lowRow+ ", " + lowCol
+                       + " with an altitude of " + map.getAltitude(lowRow,lowCol));
        
 
 
@@ -418,7 +420,7 @@ public class LowPointFinder {
     public static point findBestPoint(Map map, point a, point b,point c)
     {
         point d = new point(0,0,0);
-
+        
         List<Integer> list1  =new ArrayList <Integer>();
         List<Integer> list2  =new ArrayList <Integer>();
         boolean isEnd = false;
@@ -462,7 +464,13 @@ public class LowPointFinder {
             colB = previousCol;
 
         }
+        Collections.reverse(list1);
+        Collections.reverse(list2);
 
+        int lengthLimit = list1.size();
+
+        if(list1.size()>list2.size())
+            lengthLimit = list2.size();
         System.out.print("Altitudes for Point a = ");
         for(int i = 0; i < list1.size();i++)
         {
@@ -477,9 +485,48 @@ public class LowPointFinder {
         }   
         System.out.println();
 
-        list1.sort()
+       boolean difference = false;
 
-        return d;
+       int pos = 0;
+    
+       //adjust this to work with all matching values
+       while(!isEnd)
+       {
+            if(list1.get(pos)!=list2.get(pos))
+            {
+                isEnd = true;
+                difference = true;
+            }
+
+            if(pos<lengthLimit-1)
+             pos++;
+            else
+                isEnd = true;
+       }
+
+       int differenceRowA = Math.abs(rowOrigin-rowA);
+       int differenceColA = Math.abs(colOrigin-colA);
+
+
+       int pointsA = differenceRowA+differenceColA;
+
+       int differenceRowB = Math.abs(rowOrigin-rowB);
+       int differenceColB = Math.abs(colOrigin-colB);
+
+       int pointsB = differenceRowB + differenceColB;
+
+       if(difference==true)
+       {
+        if(list1.get(pos)>list2.get(pos))
+            return b;
+        else 
+            return a;
+       }
+       if(pointsA>pointsB)
+            return b;
+       else
+            return a;
+       
     }
     public static void main(String args[]) {
 
@@ -501,7 +548,8 @@ public class LowPointFinder {
 
         //This one has the same ending height for two positions ()
         //findLowestPoint(map,8,3,0,0);
-        printLowestPoint(map,8,3);
+        printLowestPoint(map,3,2);
+        //printLowestPoint(map,8,3);
         printGrid(map, grid, 9, 9);
 
     }
