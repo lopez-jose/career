@@ -502,9 +502,6 @@ public class LowPointFinder {
 
         Map map = new Map(10, 10, 0);
         map.printMap();
-
-       
-        
         printLowestPoint(map, 3, 2);
         
         // printLowestPoint(map,8,3); //has same ending altitude for two reachable points
