@@ -35,7 +35,6 @@ import static java.util.Comparator.comparing;
 
 public class LowPointFinder {
     static int[][] grid = new int[10][10];
-    static Scanner input = new Scanner(System.in);
     static ArrayList<point> listb = new ArrayList<point>();
     static pointPosition[][] previousPositions = new pointPosition[10][10];
     
@@ -235,7 +234,6 @@ public class LowPointFinder {
         printPointGrid(previousPositions);
         
         boolean finalLocation = false;
-        int elevationChange = 0;
         // int currentAltitude = 0 ;
         while (!finalLocation) {
             boolean withinBounds = (iRow >= 0) & (iRow <= 9) & (iColumn >= 0) & (iColumn <= 9);
@@ -428,7 +426,6 @@ public class LowPointFinder {
         int colA = a.getCol();
         int rowB = b.getRow();
         int colB = b.getCol();
-        int height = a.getAltitude();
         int rowOrigin = c.getRow();
         int colOrigin = c.getCol();
         System.out.println("Row A = " + rowA + "Col A = " + colA);
