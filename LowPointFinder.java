@@ -211,30 +211,28 @@ public class LowPointFinder {
     }
 
     public static void findLowestPoint(Map map, int iRow, int iColumn, int prevRow, int prevColumn) {
-        // implement this function (and any necessary helper code);
-        // replace the ??? with the correct information
+
+        boolean finalLocation = false;
+        int currentAltitude = 0;
+        boolean withinBounds = false;
 
         // saves the previous location of the point
         point previousPoint = new point(prevRow, prevColumn, 0, true);
-        //Adjustment values for row,col for each surrounding location
-        pointAdjust topAdjust,bottomAdjust,leftAdjust,rightAdjust;
-        //altitude values for surrounding locations
-        int topAltitude,bottomAltitude,leftAltitude,rightAltitude;
-
+        // Adjustment values for row,col for each surrounding location
+        pointAdjust topAdjust, bottomAdjust, leftAdjust, rightAdjust;
+        // altitude values for surrounding locations
+        int topAltitude, bottomAltitude, leftAltitude, rightAltitude;
 
         if (previousPositions[iRow][iColumn].getOccupied() == false)
             previousPositions[iRow][iColumn] = previousPoint;
-            //previousPositionsPrint(previousPositions);
+        // previousPositionsPrint(previousPositions);
 
-
-
-        boolean finalLocation = false;
         // int currentAltitude = 0 ;
         while (!finalLocation) {
-            boolean withinBounds = (iRow >= 0) & (iRow <= 9) & (iColumn >= 0) & (iColumn <= 9);
+            withinBounds = (iRow >= 0) & (iRow <= 9) & (iColumn >= 0) & (iColumn <= 9);
             // Sets the current location to be a traversed location
             grid[iRow][iColumn] = 1;
-            int currentAltitude = 0;
+            currentAltitude = 0;
             if (withinBounds)
                 currentAltitude = map.getAltitude(iRow, iColumn);
 
@@ -274,7 +272,7 @@ public class LowPointFinder {
             else
                 rightAltitude = currentAltitude + 1;
 
-            //sets the difference between the surrounding altitudes and current altitude
+            // sets the difference between the surrounding altitudes and current altitude
             int topDifference = topAltitude - currentAltitude;
             int bottomDifference = bottomAltitude - currentAltitude;
             int leftDifference = leftAltitude - currentAltitude;
@@ -305,12 +303,12 @@ public class LowPointFinder {
             listAdjustments.add(leftAdjust);
             listAdjustments.add(rightAdjust);
 
-
             // temporary variables to hold current position value
             int tempRow = iRow;
             int tempColumn = iColumn;
 
-            // Sorts the listAdjustments in ascending order according to the value of getDifference()
+            // Sorts the listAdjustments in ascending order according to the value of
+            // getDifference()
             Collections.sort(listAdjustments, comparing(pointAdjust::getDifference));
 
             // checks the values up to legal moves amount
@@ -326,12 +324,12 @@ public class LowPointFinder {
                 if (withinBounds)
                     if (grid[tempRow][tempColumn] == 0)
                         findLowestPoint(map, tempRow, tempColumn, iRow, iColumn);
-                
 
             }
             tempRow = iRow;
             tempColumn = iColumn;
-            // This might cause issues because I get the first item on the listAdjustments even if it
+            // This might cause issues because I get the first item on the listAdjustments
+            // even if it
             // is not a good move.
 
             // adjust column final value
@@ -350,9 +348,8 @@ public class LowPointFinder {
 
             } else {
                 finalLocation = true;
-              
+
             }
-         
 
         }
         point a = new point(iRow, iColumn, map.getAltitude(iRow, iColumn), false);
@@ -362,7 +359,6 @@ public class LowPointFinder {
 
     }
 
-
     public static void printLowestPoint(Map map, int iRow, int iColumn) {
         for (int i = 0; i < 10; i++) {
             for (int p = 0; p < 10; p++) {
@@ -370,23 +366,23 @@ public class LowPointFinder {
                 previousPositions[i][p] = a;
             }
         }
-        //Finds lowest reachable altitudes and saves them to finalPositions
+        // Finds lowest reachable altitudes and saves them to finalPositions
         findLowestPoint(map, iRow, iColumn, iRow, iColumn);
         Collections.sort(finalPositions, comparing(point::getAltitude));
 
-        //sets the lowestPoint values to finalPositions.get(0);
+        // sets the lowestPoint values to finalPositions.get(0);
         point lowestPoint = finalPositions.get(0);
 
         int low = lowestPoint.getAltitude();
         boolean isEnd = false;
         int index = 1;
         point origin = new point(iRow, iColumn, map.getAltitude(iRow, iColumn), false);
-        
 
-        //while altitudes read are the same height os lowestPoint determine the actual lowest point given criteria.
+        // while altitudes read are the same height os lowestPoint determine the actual
+        // lowest point given criteria.
         while (!isEnd) {
 
-            //if values matches lowestPoint then determine the best point
+            // if values matches lowestPoint then determine the best point
             if (finalPositions.get(index).getAltitude() == low) {
                 lowestPoint = findBestPoint(map, lowestPoint, finalPositions.get(index), origin);
 
@@ -395,7 +391,7 @@ public class LowPointFinder {
             }
             index = index + 1;
         }
-        //Set lowRow lowCol to determined lowestPoint
+        // Set lowRow lowCol to determined lowestPoint
         int lowRow = lowestPoint.getRow();
         int lowCol = lowestPoint.getCol();
 
@@ -416,22 +412,20 @@ public class LowPointFinder {
         boolean difference = false;
         int pos = 0;
 
-
-        //used to determine difference in row, col from 0,0 for each point
+        // used to determine difference in row, col from 0,0 for each point
         int differenceRowA = Math.abs(rowOrigin - rowA);
         int differenceColA = Math.abs(colOrigin - colA);
-        
+
         int differenceRowB = Math.abs(rowOrigin - rowB);
         int differenceColB = Math.abs(colOrigin - colB);
-        //used to determine lowest point
+        // used to determine lowest point
         int pointsA = differenceRowA + differenceColA;
         int pointsB = differenceRowB + differenceColB;
-
 
         altitudesA.add(a.getAltitude());
         altitudesB.add(b.getAltitude());
 
-        //Stores altitudes of previousPositions in altitudesA or altitudes B
+        // Stores altitudes of previousPositions in altitudesA or altitudes B
         while (!isEnd) {
             if (rowA == rowOrigin && colA == colOrigin)
                 break;
@@ -458,16 +452,16 @@ public class LowPointFinder {
 
         }
 
-        //Sorts lists
+        // Sorts lists
         Collections.reverse(altitudesA);
         Collections.reverse(altitudesB);
 
-        //sets length limit
+        // sets length limit
         int lengthLimit = altitudesA.size();
         if (altitudesA.size() > altitudesB.size())
             lengthLimit = altitudesB.size();
 
-        //checks if there is a difference between altitudes, if so then end loop
+        // checks if there is a difference between altitudes, if so then end loop
         while (!isEnd) {
             if (altitudesA.get(pos) != altitudesB.get(pos)) {
                 isEnd = true;
@@ -480,8 +474,7 @@ public class LowPointFinder {
                 isEnd = true;
         }
 
-        
-        //if there is a difference in Altitude return the correct point
+        // if there is a difference in Altitude return the correct point
         if (difference == true) {
             if (altitudesA.get(pos) > altitudesB.get(pos))
                 return b;
@@ -489,8 +482,9 @@ public class LowPointFinder {
                 return a;
         }
 
-        //if there is no difference in altitude, then determine correct point based on points
-        
+        // if there is no difference in altitude, then determine correct point based on
+        // points
+
         if (pointsA > pointsB)
             return b;
         else
@@ -503,8 +497,9 @@ public class LowPointFinder {
         Map map = new Map(10, 10, 0);
         map.printMap();
         printLowestPoint(map, 3, 2);
-        
-        // printLowestPoint(map,8,3); //has same ending altitude for two reachable points
+
+        // printLowestPoint(map,8,3); //has same ending altitude for two reachable
+        // points
         finalPositionsPrint(map, grid, 9, 9);
         previousPositionsPrint(previousPositions);
 
