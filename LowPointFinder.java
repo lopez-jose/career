@@ -515,7 +515,7 @@ public class LowPointFinder {
         map.printMap();
         printLowestPoint(map, 3, 4);
 
-        finalPositionsPrint(map, grid, 9, 9);
+        //finalPositionsPrint(map, grid, 9, 9);
         previousPositionsPrint(previousPositions);
 
     }
