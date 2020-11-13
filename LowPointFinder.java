@@ -448,11 +448,9 @@ public class LowPointFinder {
             int previousRow = previousPositions[rowA][colA].getRow();
             int previousCol = previousPositions[rowA][colA].getCol();
             int oldHeight = map.getAltitude(previousRow, previousCol);
-            System.out.println("Previous Point= (" + previousRow + ","+ previousCol + ")\tAltitude = " + oldHeight);
             altitudesA.add(oldHeight);
             rowA = previousRow;
             colA = previousCol;
-            input.nextLine();
 
         }
         isEnd = false;
@@ -516,12 +514,9 @@ public class LowPointFinder {
 
         map.printMap();
         printLowestPoint(map,3,4);
-       // printLowestPoint(map, 3, 2);
-
-        // printLowestPoint(map,8,3); //has same ending altitude for two reachable
-        // points
-        //finalPositionsPrint(map, grid, 9, 9);
-       // previousPositionsPrint(previousPositions);
+       
+        finalPositionsPrint(map, grid, 9, 9);
+        previousPositionsPrint(previousPositions);
 
     }
 }
