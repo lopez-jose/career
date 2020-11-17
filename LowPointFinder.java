@@ -41,6 +41,7 @@ public class LowPointFinder {
     // previousPositions stores all the previous positions for each point on the
     // grid
     static point[][] previousPositions = new point[10][10];
+    static Scanner input = new Scanner(System.in);
 
     static class point {
         int row;
@@ -142,6 +143,18 @@ public class LowPointFinder {
                     strCell = String.format("%4d", getAltitude(i, j));
                     sbRow.append(strCell);
                 }
+
+                mGrid[0] = new int[] { 90, 90, 90, 90, 90, 90, 90, 90, 90, 99 };
+                mGrid[1] = new int[] { 90, 90, 90, 60, 75, 90, 90, 90, 90, 99 };
+                mGrid[2] = new int[] { 90, 90, 90, 71, 80, 90, 90, 90, 90, 99 };
+                mGrid[3] = new int[] { 90, 90, 90, 80, 90, 90, 90, 90, 90, 99 };
+                mGrid[4] = new int[] { 90, 90, 90, 90, 80, 90, 90, 90, 90, 99 };
+                mGrid[5] = new int[] { 90, 90, 90, 90, 70, 90, 90, 90, 90, 99 };
+                mGrid[6] = new int[] { 90, 90, 90, 90, 60, 90, 90, 90, 90, 99 };
+                mGrid[7] = new int[] { 90, 90, 90, 90, 90, 90, 90, 90, 90, 99 };
+                mGrid[8] = new int[] { 90, 90, 90, 90, 90, 90, 90, 90, 90, 99 };
+                mGrid[9] = new int[] { 90, 90, 90, 90, 90, 90, 90, 90, 90, 99 };
+
                 System.out.println(sbRow.toString());
             }
         }
@@ -354,8 +367,6 @@ public class LowPointFinder {
         }
         point a = new point(iRow, iColumn, map.getAltitude(iRow, iColumn), false);
         finalPositions.add(a);
-        // System.out.println("The lowest reachable point occurs at " + iRow + ", " +
-        // iColumn + " with an altitude of "+ map.getAltitude(iRow, iColumn));
 
     }
 
@@ -408,7 +419,7 @@ public class LowPointFinder {
         int colA = a.getCol();
         int rowB = b.getRow();
         int colB = b.getCol();
-        int rowOrigin = 0, colOrigin = 0;
+        int rowOrigin = c.getRow(), colOrigin = c.getCol();
         boolean difference = false;
         int pos = 0;
 
@@ -426,13 +437,18 @@ public class LowPointFinder {
         altitudesB.add(b.getAltitude());
 
         // Stores altitudes of previousPositions in altitudesA or altitudes B
+
+        // I'm infinite looping on in these lines.
+
+        // System.out.println("Current Position = (" + rowA + ","+colA+")" +
+        // "Altitude="+a.getAltitude());
+
         while (!isEnd) {
             if (rowA == rowOrigin && colA == colOrigin)
                 break;
             int previousRow = previousPositions[rowA][colA].getRow();
             int previousCol = previousPositions[rowA][colA].getCol();
             int oldHeight = map.getAltitude(previousRow, previousCol);
-            System.out.println(oldHeight);
             altitudesA.add(oldHeight);
             rowA = previousRow;
             colA = previousCol;
@@ -445,7 +461,7 @@ public class LowPointFinder {
             int previousRow = previousPositions[rowB][colB].getRow();
             int previousCol = previousPositions[rowB][colB].getCol();
             int oldHeight = map.getAltitude(previousRow, previousCol);
-            System.out.println(oldHeight);
+
             altitudesB.add(oldHeight);
             rowB = previousRow;
             colB = previousCol;
@@ -495,13 +511,13 @@ public class LowPointFinder {
     public static void main(String args[]) {
 
         Map map = new Map(10, 10, 0);
-        map.printMap();
-        printLowestPoint(map, 3, 2);
 
-        // printLowestPoint(map,8,3); //has same ending altitude for two reachable
-        // points
-        finalPositionsPrint(map, grid, 9, 9);
+        map.printMap();
+        printLowestPoint(map, 3, 4);
+
+        //finalPositionsPrint(map, grid, 9, 9);
         previousPositionsPrint(previousPositions);
 
     }
 }
+
