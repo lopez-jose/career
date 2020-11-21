@@ -17,6 +17,8 @@ public class PrimeChecker {
         else
             System.out.println(n + " is not Prime");
 
+        input.close();
+
     }
 
     public static boolean isPrime(int n) {
