@@ -13,7 +13,7 @@ public class PalindromeChecker {
             System.out.println(toCheck + " is a Palindrome");
         else
             System.out.println(toCheck + " is not a Palindrome");
-
+        input.close();
     }
 
     public static boolean is_Palindrome(String s) {
