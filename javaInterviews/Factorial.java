@@ -9,8 +9,9 @@ public class Factorial {
 
         int toFactorial = input.nextInt();
 
-        System.out.println("The Factorial of " + toFactorial + " = " +getFactorial(toFactorial);
+        System.out.println("The Factorial of " + toFactorial + " = " + getFactorial(toFactorial));
 
+        System.out.println("The Recursive Factorial of" + toFactorial + " = " + getRecursiveFactorial(toFactorial));
         input.close();
     }
 
@@ -21,6 +22,17 @@ public class Factorial {
             value = value * i;
         }
         return value;
+    }
+
+    public static int getRecursiveFactorial(int n) {
+        if (n == 0) {
+            return 1;
+        }
+        if (n == 1) {
+            return 1;
+        }
+
+        return getRecursiveFactorial((n - 1)) * n;
     }
 
 }
