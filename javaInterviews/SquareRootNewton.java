@@ -9,7 +9,7 @@ public class SquareRootNewton {
         int number = input.nextInt();
 
         System.out.println("The square root of " + number + " = " + findSquareRoot(number));
-
+        input.close();
     }
 
     public static double findSquareRoot(int n) {
