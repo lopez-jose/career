@@ -11,7 +11,8 @@ public class Vending {
 
     public static void printProducts(ArrayList<Product> productList) {
         for (int i = 0; i < productList.size(); i++) {
-            System.out.printf("Name=%s", productList.get(i).getName());
+            Product temp = productList.get(i);
+            System.out.printf("Name=%s\tPrice=%d\tQuantity=%d%n", temp.getName(), temp.getPrice(), temp.getQuantity());
         }
     }
 }
