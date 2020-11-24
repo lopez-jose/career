@@ -13,8 +13,7 @@ public class ReverseArrayInPlace {
 
     }
 
-    public static ArrayList reversedList(ArrayList<Integer> a) {
-        // ArrayList<Integer> b = new ArrayList<Integer>();
+    public static ArrayList<Integer> reversedList(ArrayList<Integer> a) {
 
         for (int i = 0; i < a.size(); i++) {
             int temp = a.get(a.size() - i - 1);
