@@ -11,6 +11,9 @@ public class BinarySearch {
         int toFind = input.nextInt();
 
         System.out.println("Value is found at" + returnElement(array, toFind));
+
+        System.out.println("Value is found Recursively at"
+                + binaryRecursiveSearch(array, 0, (array.length / 2), array.length, toFind));
     }
 
     public static int returnElement(int array[], int n) {
@@ -42,6 +45,26 @@ public class BinarySearch {
         }
 
         return -1;
+    }
+
+    public static int binaryRecursiveSearch(int array[], int start, int middle, int end, int n) {
+
+        if (middle == start || middle == end) {
+            return -1;
+        }
+        if (array[middle] == n) {
+            return middle;
+        } else if (array[middle] < n) {
+            start = middle;
+            middle = (start + end) / 2;
+            return binaryRecursiveSearch(array, start, middle, end, n);
+
+        } else {
+            end = middle;
+            middle = (start + end) / 2;
+            return binaryRecursiveSearch(array, start, middle, end, n);
+        }
+
     }
 
 }
