@@ -14,6 +14,7 @@ public class BinarySearch {
 
         System.out.println("Value is found Recursively at"
                 + binaryRecursiveSearch(array, 0, (array.length / 2), array.length, toFind));
+        input.close();
     }
 
     public static int returnElement(int array[], int n) {
