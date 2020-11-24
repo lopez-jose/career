@@ -1,8 +1,5 @@
-import java.util.Scanner;
-
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 public class AnagramChecker {
     public static void main(String[] args) {
@@ -11,7 +8,9 @@ public class AnagramChecker {
         String word1 = "mary";
         String word2 = "army";
 
+
         System.out.println(isAnagram(word1, word2));
+        if(isAnagram(word1,word))
 
     }
 
@@ -36,17 +35,9 @@ public class AnagramChecker {
 
         }
 
-        System.out.println(charMap1.size());
-        System.out.println(charMap2.size());
-
-        Set<Map.Entry<Character, Integer>> entrySet = charMap1.entrySet();
-
-        for (Map.Entry<Character, Integer> entry : entrySet) {
-            if (entry.getValue() > 1) {
-
-            }
-        }
-
+        if (charMap1.equals(charMap2))
+            return true;
         return false;
+
     }
 }
