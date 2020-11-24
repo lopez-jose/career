@@ -1,8 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import javax.lang.model.util.ElementScanner14;
-
 import java.util.HashMap;
 
 public class VendingMain {
@@ -11,7 +9,7 @@ public class VendingMain {
         Scanner input = new Scanner(System.in);
         System.out.println("This program simulates a vending machine");
 
-        ArrayList<Product> items = new ArrayList<Product>();
+        ArrayList<Product> productList = new ArrayList<Product>();
         HashMap<String, Integer> coinMap = new HashMap<String, Integer>();
         HashMap<String, Product> productMap = new HashMap<String, Product>();
 
@@ -28,12 +26,12 @@ public class VendingMain {
         productMap.put("pepsi", pepsi);
         productMap.put("soda", soda);
 
-        items.add(coke);
-        items.add(pepsi);
-        items.add(soda);
+        productList.add(coke);
+        productList.add(pepsi);
+        productList.add(soda);
 
-        Vending a = new Vending(3, items);
-        Vending.printProducts(items);
+        Vending a = new Vending(3, productList);
+        Vending.printProducts(productList);
 
         System.out.println("Enter some money. Type 'refund' to cancel");
         boolean reachedPrice = false;
@@ -60,6 +58,8 @@ public class VendingMain {
             }
         }
         System.out.println("You have purchased a " + userInput);
+
+        Vending.printProducts(productList);
 
         input.close();
 
