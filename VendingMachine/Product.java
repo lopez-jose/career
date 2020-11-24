@@ -21,4 +21,8 @@ public class Product extends VendingMain {
         return quantity;
     }
 
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
 }
