@@ -1,7 +1,7 @@
-public class Product {
-    public String name;
-    public int price;
-    public int quantity;
+public class Product extends VendingMachine {
+    String name;
+    int price;
+    int quantity;
 
     public Product(String name, int price, int quantity) {
         this.name = name;
