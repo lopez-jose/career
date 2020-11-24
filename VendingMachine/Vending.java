@@ -1,12 +1,13 @@
 import java.util.ArrayList;
 
 public class Vending {
-    int amount;
+    double moneyStored;
     ArrayList<Product> productList;
 
-    public Vending(int amount, ArrayList<Product> productList) {
-        this.amount = amount;
+    public Vending(double moneyStored, ArrayList<Product> productList) {
+        this.moneyStored = moneyStored;
         this.productList = productList;
+
     }
 
     public static void printProducts(ArrayList<Product> productList) {
