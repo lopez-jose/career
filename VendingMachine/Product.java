@@ -1,4 +1,4 @@
-public class Product extends VendingMachine {
+public class Product extends VendingMain {
     String name;
     int price;
     int quantity;
