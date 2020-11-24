@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import javax.lang.model.util.ElementScanner14;
+
 import java.util.HashMap;
 
 public class VendingMain {
@@ -32,7 +35,7 @@ public class VendingMain {
         Vending a = new Vending(3, items);
         Vending.printProducts(items);
 
-        System.out.println("Enter some money.");
+        System.out.println("Enter some money. Type 'refund' to cancel");
         boolean reachedPrice = false;
         int totalEntered = 0;
         String userInput = "";
@@ -40,15 +43,24 @@ public class VendingMain {
         while (!reachedPrice) {
             System.out.printf("Entered: $%d%n", totalEntered);
             userInput = input.nextLine();
+            if (userInput.equals("refund")) {
+                reachedPrice = true;
+                System.out.println("You have requested a refund. Have a good day!");
+
+            }
             if (coinMap.containsKey(userInput))
                 totalEntered += coinMap.get(userInput);
             if (productMap.containsKey(userInput)) {
-                if (totalEntered > productMap.get(userInput).getPrice()) {
+                if (totalEntered >= productMap.get(userInput).getPrice()) {
                     reachedPrice = true;
+
+                } else {
+                    System.out.printf("Not enough money for a %s!!!%n", userInput);
                 }
             }
         }
-        System.out.println("You have enough money to order a " + userInput);
+        System.out.println("You have purchased a " + userInput);
+
         input.close();
 
     }
