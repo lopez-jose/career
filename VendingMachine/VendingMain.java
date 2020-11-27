@@ -18,9 +18,9 @@ public class VendingMain {
         coinMap.put("dime", 10);
         coinMap.put("quarter", 25);
 
-        Product coke = new Product("Coke", 25, 10);
-        Product pepsi = new Product("Pepsi", 35, 10);
-        Product soda = new Product("Soda", 45, 10);
+        Product coke = new Product("coke", 25, 10);
+        Product pepsi = new Product("pepsi", 35, 10);
+        Product soda = new Product("soda", 45, 10);
 
         productMap.put("coke", coke);
         productMap.put("pepsi", pepsi);
@@ -39,7 +39,7 @@ public class VendingMain {
         String userInput = "";
 
         while (!reachedPrice) {
-            System.out.printf("Entered: $%d%n", totalEntered);
+            System.out.printf("Entered: %d cents%n", totalEntered);
             userInput = input.nextLine();
             if (userInput.equals("refund")) {
                 reachedPrice = true;
@@ -58,7 +58,14 @@ public class VendingMain {
             }
         }
         System.out.println("You have purchased a " + userInput);
-
+        for (int i = 0; i < a.productList.size(); i++) {
+            if (a.productList.get(i).getName().equals(userInput)) {
+                System.out.println("Matches");
+                a.productList.get(i).setQuantity(a.productList.get(i).getQuantity() - 1);
+                totalEntered = a.productList.get(i).getPrice();
+                System.out.printf("Here is %d cents change", totalEntered);
+            }
+        }
         Vending.printProducts(productList);
 
         input.close();
