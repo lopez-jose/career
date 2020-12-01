@@ -19,7 +19,7 @@ void reverseString(char *str)
     for (int i = 0; i < l / 2; i++)
     {
         ch = *end_ptr;
-        printf("%c", ch);
+        printf("%c\n", ch);
         *end_ptr = *begin_ptr;
         *begin_ptr = ch;
 
