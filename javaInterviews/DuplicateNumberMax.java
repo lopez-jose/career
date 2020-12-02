@@ -18,14 +18,17 @@ public class DuplicateNumberMax {
 
         for (int i = 0; i < array.length; i++) {
             if (test.containsKey(array[i])) {
-                test.put(i, test.get(i) + 1);
+                test.put(array[i], test.get(array[i]) + 1);
             } else {
-                test.put(i, 1);
+                test.put(array[i], 1);
             }
         }
         Set<Map.Entry<Integer, Integer>> entrySet = test.entrySet();
         for (Map.Entry<Integer, Integer> entry : entrySet) {
-            System.out.println(entry.getValue() + " " + entry.getKey());
+            if (entry.getValue() == entry.getKey()) {
+                if (maxMatching < entry.getValue())
+                    maxMatching = entry.getValue();
+            }
 
         }
 
