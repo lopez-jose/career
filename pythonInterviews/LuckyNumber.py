@@ -2,17 +2,17 @@ import math
 
 
 def isLucky(num):
-    lucky = True
+    lucky = 1
     # here we store an array that has 10 elements
     array = [0]*10
 
     temp = num
     while temp > 0:
         temp = math.floor(temp % 10)
-        if array[temp] == False:
-            array[temp] = True
+        if array[temp] == 0:
+            array[temp] = 1
         else:
-            lucky = False
+            return 0
         temp = temp/10
 
     return lucky
@@ -20,7 +20,7 @@ def isLucky(num):
 
 def main():
     print("hello")
-    print(isLucky(232))
+    print(isLucky(231))
 
 
 main()
