@@ -4,16 +4,25 @@ import math
 def binarySearch(num, limit, increment):
     array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     start = 0
-    end = len(array)-1
-    middle = (start+end)/2
+    end = len((array))-1
+    print(end)
+    middle = (start+end)//2
+    print(middle)
     startEqualsEnd = False
 
     while startEqualsEnd == False:
+        evaluated = num+(array[middle])*increment
+        print(evaluated)
+
         if start == end:
             startEqualsEnd = True
             return array[middle]
-        if((num+increment*array[middle]**2 > limit)):
+        if evaluated > limit:
             end = middle
+            middle = (start+end)//2
+        else:
+            start = middle
+            middle = (start+end)//2
 
 
 def binarySquareRoot(toFind, precision):
