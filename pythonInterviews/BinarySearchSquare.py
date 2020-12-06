@@ -11,12 +11,10 @@ def binarySearch(num, limit, increment):
     startEqualsEnd = False
 
     while startEqualsEnd == False:
-        evaluated = num+(array[middle])*increment
-        print(evaluated)
-
-        if start == end:
+        evaluated = (num+(array[middle])*increment)**2
+        if middle == start or middle == end:
             startEqualsEnd = True
-            return array[middle]
+            return increment*array[middle]
         if evaluated > limit:
             end = middle
             middle = (start+end)//2
@@ -30,16 +28,22 @@ def binarySquareRoot(toFind, precision):
     i = 1
     while(i**2 < toFind):
         i = i + 1
-        # print(i)
-    digit = i-1
-    increment = 0.1
-    binarySearch(digit, toFind, increment)
-    return digit
+    number = i-1
+
+    increment = 1.0
+    for j in range(precision):
+        increment /= 10
+        print(increment)
+        toAdd = binarySearch(number, toFind, increment)
+        print(toAdd)
+        number += toAdd
+
+    return number
 
 
 def main():
     toFind = 123
-    precision = 5
+    precision = 8
     print(binarySquareRoot(toFind, precision))
 
 
