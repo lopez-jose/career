@@ -5,12 +5,14 @@ def linearSearch(arr, num):
         if arr[i] == num:
             return i
             break
+    return -1
 
 
 def main():
     array = [1, 5, 3, 25, 2, 5, 32, 5]
-
-    print(linearSearch(array, 5))
+    element = 9
+    print("Number: %s is found at position: %s" %
+          (element, linearSearch(array, element)))
 
 
 main()
