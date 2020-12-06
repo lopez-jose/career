@@ -1,18 +1,34 @@
-
+import time
 # returns linear search position
+
+
 def linearSearch(arr, num):
+
     for i in range(len(arr)):
         if arr[i] == num:
-            return i
+            millis = int(round(time.time()*1000))
+            return i, millis
             break
-    return -1
+    millis = int(round(time.time()*1000))
+    return -1, millis
 
 
 def main():
-    array = [1, 5, 3, 25, 2, 5, 32, 5]
-    element = 9
-    print("Number: %s is found at position: %s" %
-          (element, linearSearch(array, element)))
+    array = [0]
+    for i in range(0, 10000000):
+        array.append(i)
+
+    element = 9999999
+    millis = int(round(time.time()*1000))
+    position, millisSearch = linearSearch(array, element)
+    print(millis)
+    print(millisSearch)
+
+    timeRunning = millisSearch-millis
+    print("Number: %s is found at position: %s in %s ms" %
+          (element, position, timeRunning))
+
+    print("%s" % (millis))
 
 
 main()
