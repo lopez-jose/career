@@ -21,14 +21,10 @@ def main():
     element = 9999999
     millis = int(round(time.time()*1000))
     position, millisSearch = linearSearch(array, element)
-    print(millis)
-    print(millisSearch)
 
     timeRunning = millisSearch-millis
     print("Number: %s is found at position: %s in %s ms" %
           (element, position, timeRunning))
-
-    print("%s" % (millis))
 
 
 main()
