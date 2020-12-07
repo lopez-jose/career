@@ -21,7 +21,7 @@ def interpolationSearch(array, size, searchNum):
 
 def main():
     array = []
-    maxValue = 1000
+    maxValue = 100000000
     for i in range(1, maxValue):
         array.append(i)
     print("hello")
