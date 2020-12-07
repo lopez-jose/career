@@ -4,6 +4,7 @@ using namespace std;
 
 int binarySearch(vector<int> &array, int l, int r, int numSearch)
 {
+    printf("%d", l);
     if (r >= 1)
     {
         int middle = l + (r - 1) / 2;
