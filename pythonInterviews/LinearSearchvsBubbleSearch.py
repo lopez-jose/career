@@ -42,7 +42,7 @@ def binarySearch(array, numSearch):
 def main():
 
     array = []
-    listSize = 10000000
+    listSize = 1000000000
     for i in range(1, listSize):
         array.append(i)
 
