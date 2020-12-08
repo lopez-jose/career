@@ -45,14 +45,18 @@ def binarySearch(array, left, right, searchNum):
 def recursiveBinarySearch(array, left, right, searchNum):
     millisStart = int(round(time.time()*1000))
 
-    while(left <= right):
+    while(right >= 1):
         middle = (left+(right-1))//2
 
+        if(array[middle] == searchNum):
+            return middle
         if(array[middle] < searchNum):
-            millisStart = int(round(time.time()*1000))
-            return recursiveBinarySearch(array, middle+1, right, searchNum)
+            millisEnd = int(round(time.time()*1000))
+
+            return recursiveBinarySearch(array, middle+1, right, searchNum), millisEnd-millisStart
         else:
-            return recursiveBinarySearch(array, left, middle-1, searchNum)
+            millisEnd = int(round(time.time()*1000))
+            return recursiveBinarySearch(array, left, middle-1, searchNum), millisEnd-millisStart
 
     return -1
 
@@ -64,11 +68,18 @@ def main():
         array.append(i)
     position, timeInterpol = interpolationSearch(array, len(array), maxValue-1)
 
-    print("Number found at position: %s, in %s ms" % (position, timeInterpol))
+    print("Interpolation Search: Number found at position: %s, in %s ms" %
+          (position, timeInterpol))
 
     position, timeBinary = binarySearch(array, 0, len(array), maxValue-1)
 
-    print("Number found at position: %s, in %s ms" % (position, timeBinary))
+    print("Binary Search: Number found at position: %s, in %s ms" %
+          (position, timeBinary))
+
+    position, timeRecursiveBinary = recursiveBinarySearch(
+        array, 0, len(array), maxValue-1)
+    print("Recursive Binary Search, Number found at position: %s, in %s ms" %
+          (position, timeRecursiveBinary))
 
 
 main()
