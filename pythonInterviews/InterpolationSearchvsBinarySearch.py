@@ -45,8 +45,14 @@ def binarySearch(array, left, right, searchNum):
 def recursiveBinarySearch(array, left, right, searchNum):
     millisStart = int(round(time.time()*1000))
 
-    while(l <= r):
+    while(left <= right):
         middle = (left+(right-1))//2
+
+        if(array[middle] < searchNum):
+            millisStart = int(round(time.time()*1000))
+            return recursiveBinarySearch(array, middle+1, right, searchNum)
+        else:
+            return recursiveBinarySearch(array, left, middle-1, searchNum)
 
     return -1
 
