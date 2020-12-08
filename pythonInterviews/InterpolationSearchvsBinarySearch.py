@@ -42,6 +42,15 @@ def binarySearch(array, left, right, searchNum):
     return -1, millisEnd-millisStart
 
 
+def recursiveBinarySearch(array, left, right, searchNum):
+    millisStart = int(round(time.time()*1000))
+
+    while(l <= r):
+        middle = (left+(right-1))//2
+
+    return -1
+
+
 def main():
     array = []
     maxValue = 100000000
