@@ -1,3 +1,6 @@
+import math
+
+
 def binarySearch(array, left, right, searchNum):
 
     while(left <= right):
@@ -14,8 +17,17 @@ def binarySearch(array, left, right, searchNum):
 
 def exponentialSearch(array, left, right, searchNum):
     searching = True
-    while(searching):
-    if
+    search = 0
+    while searching:
+        index = (int(math.pow(2, search)))
+        print(index)
+        if(search < right):
+            if(searchNum < array[index]):
+                binarySearch(array, left, right, searchNum)
+                searching = False
+        else:
+            searching = False
+
 
 def main():
     array = []
