@@ -12,9 +12,14 @@ def binarySearch(array, left, right, searchNum):
     return -1
 
 
+def exponentialSearch(array, left, right, searchNum):
+    searching = True
+    while(searching):
+    if
+
 def main():
     array = []
-    maxValue = 100000
+    maxValue = 10000000
     for i in range(0, maxValue):
         array.append(i)
 
