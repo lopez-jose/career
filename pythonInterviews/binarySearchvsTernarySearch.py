@@ -14,7 +14,18 @@ def binarySearch(array, left, right, searchNum):
 def ternarySearch(array, left, right, searchNum):
     mid1 = left+(right-left)//3
     mid2 = right-(right-left)//3
-    return 0
+    if(right >= 1):
+        if(searchNum == array[mid1]):
+            return mid1
+        if(searchNum == array[mid2]):
+            return mid2
+        if(searchNum < array[mid1]):
+            return ternarySearch(array, left, mid1-1, searchNum)
+        if(searchNum > array[mid2]):
+            return ternarySearch(array, mid2+1, right, searchNum)
+        else:
+            return ternarySearch(array, mid1+1, mid2-1, searchNum)
+    return -1
 
 
 def main():
@@ -26,6 +37,9 @@ def main():
     position = binarySearch(array, 0, len(array), maxValue-1)
 
     print("Binary Search: %s" % (position))
+
+    position = ternarySearch(array, 0, len(array), maxValue-1)
+    print("Ternary Search: %s" % (position))
 
 
 main()
