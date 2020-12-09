@@ -11,6 +11,12 @@ def binarySearch(array, left, right, searchNum):
     return -1
 
 
+def ternarySearch(array, left, right, searchNum):
+    mid1 = left+(right-left)//3
+    mid2 = right-(right-left)//3
+    return 0
+
+
 def main():
     array = []
     maxValue = 100000000
