@@ -1,7 +1,4 @@
 def InsertionSort(arr):
-    print("hello")
-    A = []
-
     for i in range(len(arr)):
         min_idx = i
         for j in range(i+1, len(arr)):
@@ -9,6 +6,14 @@ def InsertionSort(arr):
                 min_idx = j
         arr[i], arr[min_idx] = arr[min_idx], arr[i]
         printSortStep(arr)
+
+
+def InsertionSortTest(array):
+    for n in range(len(array)):
+        # we set the minium index to equal the first item
+        min_index = n
+        for j in range(n+1, len(array)):
+            if(arrayarray[j])
 
 
 def printSortStep(arr):
