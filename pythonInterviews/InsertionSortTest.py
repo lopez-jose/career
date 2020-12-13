@@ -23,9 +23,5 @@ def main():
     arrayBinary = [1, 2, 3, 4, 7, 9]
     InsertionSort(array)
 
-    print(array)
-
-    print(BinarySearch(array, 0, len(arrayBinary), 6))
-
 
 main()
