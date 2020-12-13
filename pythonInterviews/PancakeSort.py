@@ -1,4 +1,4 @@
-def pancakeFlip(array):
+def pancakeSort(array):
 
     n = len(array)
     while(n >= 1):
@@ -8,7 +8,6 @@ def pancakeFlip(array):
             array = flip(array, largest)
             array = flip(array, n-1)
         n = n - 1
-    return array
 
 
 def getLargest(array, n):
@@ -33,6 +32,17 @@ def flip(array, n):
     return array
 
 
+# reverses the array
+def flipOther(array, n):
+    start = 0
+    while start < n:
+        temp = array[start]
+        array[start] = array[n]
+        array[n] = temp
+        start += 1
+        n -= 1
+
+
 def printArray(array):
     for i in range(len(array)):
         print(array[i], end=' ')
@@ -42,13 +52,10 @@ def printArray(array):
 def main():
 
     array = [1, 2, 3, 4, 2, 2]
-    print("Original array = ", end=" ")
     printArray(array)
 
-    pancakeFlip(array)
-
-   # array = [1, 2, 3, 4, 5, 6]
-    # flip(array, len(array)-4)
+    pancakeSort(array)
+    print("Sorted array = ")
     printArray(array)
 
 
