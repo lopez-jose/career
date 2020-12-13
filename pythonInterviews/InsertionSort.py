@@ -13,7 +13,10 @@ def InsertionSortTest(array):
         # we set the minium index to equal the first item
         min_index = n
         for j in range(n+1, len(array)):
-            if(arrayarray[j])
+            if(array[min_index] > array[j]):
+                min_index = j
+        array[n], array[min_index] = array[min_index], array[n]
+        printSortStep(array)
 
 
 def printSortStep(arr):
@@ -25,7 +28,7 @@ def printSortStep(arr):
 def main():
     array = [32, 32, 2, 1, 5, 38, 9]
 
-    InsertionSort(array)
+    InsertionSortTest(array)
 
 
 main()
