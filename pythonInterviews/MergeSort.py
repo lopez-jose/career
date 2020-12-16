@@ -13,18 +13,20 @@ def merge_sort(array):
         i = j = k = 0
 
         while i < len(left) and j < len(right):
-            if(array[left] < array[right]):
-                array[k] = array[left]
+            if(left[i] < right[j]):
+                array[k] = left[i]
+                i += 1
             else:
-                array[k] = array[right]
+                array[k] = right[j]
+                j += 1
             k += 1
         while i < len(left):
             array[k] = left[i]
             i += 1
             k += 1
-        while i < len(right):
+        while j < len(right):
             array[k] = right[i]
-            i += 1
+            j += 1
             k += 1
 
 
@@ -37,7 +39,7 @@ def printArray(array):
 def main():
     array = [38, 27, 43, 3, 9, 82, 10]
     merge_sort(array)
-    print
+    print(array)
 
 
 main()
