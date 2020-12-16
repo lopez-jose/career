@@ -27,12 +27,17 @@ def merge_sort(array):
             i += 1
             k += 1
 
-    return 0
+
+def printArray(array):
+    for i in range(len(array)):
+        print(array[i], end=" ")
+    print("\n")
 
 
 def main():
     array = [38, 27, 43, 3, 9, 82, 10]
-    return 0
+    merge_sort(array)
+    print
 
 
 main()
