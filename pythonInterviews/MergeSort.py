@@ -6,7 +6,7 @@ def merge_sort(array):
         # these are subarrays of the original array
         left = array[:middle]
         right = array[middle:]
-
+        print("left = %s right = %s" % (left, right))
         merge_sort(left)
         merge_sort(right)
 
