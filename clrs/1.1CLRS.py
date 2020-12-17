@@ -77,7 +77,7 @@ def main():
 
     print("N Cubed= %s" % (calculate_n_cubed(1000000)))
     for i in range(len(time_figures)):
-        print(time_figures[i], end="\t")
+        print(f'{time_figures[i]:<20s}', end="")
     print()
     for i in range(len(time_secs)):
         print("%s\t" %
