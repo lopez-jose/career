@@ -64,6 +64,8 @@ def calculate_n_factorial(number):
 def main():
     time_figures = ["1 second", "1 minute", "1 hour",
                     "1 day", "1 month", "1 year", "1 century"]
+    big_o = ["lg n", "sqrt(n)", "n", "n lg n", "n^2", "n^3", "2^n", "n!"]
+
     for i in range(len(time_secs)):
         print(time_secs[i], end=" ")
     print("\n")
@@ -79,9 +81,12 @@ def main():
     for i in range(len(time_figures)):
         print(f'{time_figures[i]:<20s}', end="")
     print()
-    for i in range(len(time_secs)):
-        print("%s\t" %
-              (time_secs[i]*calculate_n_factorial(1000000)), end=" ")
+    for j in range(len(big_o)):
+        print(big_o[j], end="\t")
+        for i in range(len(time_secs)):
+            print(
+                f'{str(time_secs[i]*calculate_n_factorial(1000000)):<19s}', end=" ")
+        print()
 
 
 main()
