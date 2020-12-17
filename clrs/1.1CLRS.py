@@ -54,14 +54,16 @@ def calculate_n_factorial(number):
     computations = 1
     while(computations < number):
         computation_count += 1
-        print(computations)
+        # print(computations)
         computations = computations*computation_count
 
-    print("\n")
+    # print("\n")
     return computation_count-1
 
 
 def main():
+    time_figures = ["1 second", "1 minute", "1 hour",
+                    "1 day", "1 month", "1 year", "1 century"]
     for i in range(len(time_secs)):
         print(time_secs[i], end=" ")
     print("\n")
@@ -74,6 +76,12 @@ def main():
     print("N squared = %s" % (calculate_n_squared(1000000)))
 
     print("N Cubed= %s" % (calculate_n_cubed(1000000)))
+    for i in range(len(time_figures)):
+        print(time_figures[i], end="\t")
+    print()
+    for i in range(len(time_secs)):
+        print("%s\t" %
+              (time_secs[i]*calculate_n_factorial(1000000)), end=" ")
 
 
 main()
