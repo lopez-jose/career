@@ -1,4 +1,6 @@
 import math
+time_secs = [1, 60, 3600, 3600*24, 3600 *
+             24*30, 3600*24*30*365, 3600*24*30*365*100]
 
 
 def calculate_log_n(number):
@@ -14,17 +16,16 @@ def calculate_n_log_n(number):
 
     # print(computation_count)
 
-    return computation_count
+    return computation_count*time_secs[0], computation_count*time_secs[1], computation_count*time_secs[2], computation_count*time_secs[3], computation_count*time_secs[4], computation_count*time_secs[5], computation_count*time_secs[6]
 
 
 def main():
     x = math.log(8, 2)
-    time_seconds = [1, 60, 3600, 3600*24, 3600 *
-                    24*30, 3600*24*30*365, 3600*24*30*365*100]
 
-    for i in range(len(time_seconds)):
-        print(time_seconds[i], end=" ")
-    print(calculate_n_log_n(time_seconds[1]))
+    for i in range(len(time_secs)):
+        print(time_secs[i], end=" ")
+    print("\n")
+    print(calculate_n_log_n(1000000))
     print(x)
     calculate_n_log_n(1000000)
     return 0
