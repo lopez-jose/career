@@ -37,7 +37,7 @@ public class AreaCalculator {
             }
 
         }
-        keyboard.close();
+        // keyboard.close();
 
     }
 
@@ -53,12 +53,11 @@ public class AreaCalculator {
 
         System.out.println();
 
-        int A = (base * height) * 2;
+        int A = (base * height) / 2;
 
         System.out.println("The area is " + A + ".");
-
+        // keyboard.close();
         return A;
-        keyboard.close();
 
     }
 
@@ -78,7 +77,7 @@ public class AreaCalculator {
 
         System.out.println("The area is " + A + ".");
 
-        keyboard.close();
+        // keyboard.close();
         return A;
     }
 
@@ -94,7 +93,7 @@ public class AreaCalculator {
         double A = Math.PI * radius * radius;
 
         System.out.println("The area is " + A + ".");
-        keyboard.close()
+        // keyboard.close();
         return A;
 
     }
