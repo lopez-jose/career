@@ -23,7 +23,19 @@ class BinaryTree {
 
     }
 
+    // We are going to call this from the main method
+    // Returns false if not found, if found returns true
+    private boolean containsNodeRecursive(Node current, int value) {
+        if (current == null) {
+            return false;
+        }
+
+        return value < current.value ? containsNodeRecursive(current.left, value)
+                : containsNodeRecursive(current.right, value);
+    }
+
     public void add(int value) {
+        // Modifies root
         root = addRecursive(root, value);
     }
 
