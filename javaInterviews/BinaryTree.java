@@ -29,9 +29,15 @@ class BinaryTree {
         if (current == null) {
             return false;
         }
-
+        if (value == current.value) {
+            return true;
+        }
         return value < current.value ? containsNodeRecursive(current.left, value)
                 : containsNodeRecursive(current.right, value);
+    }
+
+    public boolean containsNode(int value) {
+        return containsNodeRecursive(root, value);
     }
 
     public void add(int value) {
@@ -49,7 +55,7 @@ class BinaryTree {
         tree.add(5);
         tree.add(7);
         tree.add(9);
-
+        System.out.println(tree.containsNode(4));
         /*
          * The following is the tree after the above statement
          * 
