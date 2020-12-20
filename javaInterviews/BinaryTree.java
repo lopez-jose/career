@@ -80,6 +80,11 @@ public class BinaryTree {
             if (current.left == null) {
                 return current.right;
             }
+            // Case 3: Node has 2 children
+            int smallestValue = findSmallestValue(current.right);
+            current.value = smallestValue;
+            current.right = deleteRecursive(current.right, smallestValue);
+            return current;
         }
         if (value < current.value) {
             current.left = deleteRecursive(current.left, value);
@@ -100,4 +105,5 @@ public class BinaryTree {
         assertTrue(bt.containsNode(4));
         assertFalse(bt.containsNode(1));
     }
+    
 }
