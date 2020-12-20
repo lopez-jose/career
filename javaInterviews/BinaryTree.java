@@ -62,8 +62,9 @@ public class BinaryTree {
          * 1 / \ null null
          */
         System.out.println("Hello world");
-        BinaryTree bt = new BinaryTree();
-        bt.traverseInOrder(bt.root);
+        BinaryTree a = new BinaryTree();
+        a = a.createBinaryTree();
+        a.traverseInOrder(a.root);
 
     }
 
