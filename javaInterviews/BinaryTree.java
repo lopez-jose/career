@@ -1,15 +1,9 @@
-import jdk.jfr.Timestamp;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import org.junit.Test;
 
-class BinaryTree {
+public class BinaryTree {
     Node root;
-
-    BinaryTree(int key) {
-        root = new Node(key);
-    }
-
-    BinaryTree() {
-        root = null;
-    }
 
     private Node addRecursive(Node current, int value) {
         if (current == null) {
@@ -47,22 +41,34 @@ class BinaryTree {
         root = addRecursive(root, value);
     }
 
+    private BinaryTree createBinaryTree() {
+        BinaryTree bt = new BinaryTree();
+        bt.add(6);
+        bt.add(4);
+        bt.add(8);
+        bt.add(3);
+        bt.add(5);
+        bt.add(7);
+        bt.add(9);
+        return bt;
+    }
+
     public static void main(String[] args) {
         // creates a new root initializes to null
-        BinaryTree tree = new BinaryTree();
-        tree.add(6);
-        tree.add(4);
-        tree.add(8);
-        tree.add(3);
-        tree.add(5);
-        tree.add(7);
-        tree.add(9);
-        System.out.println(tree.containsNode(4));
+
         /*
          * The following is the tree after the above statement
          * 
          * 1 / \ null null
          */
 
+    }
+
+    @Test
+    public void givenABinaryTree_WhenAddingElements_ThenTreeContainsThoseElements() {
+        BinaryTree bt = createBinaryTree();
+        assertTrue(bt.containsNode(6));
+        assertTrue(bt.containsNode(4));
+        assertFalse(bt.containsNode(1));
     }
 }
