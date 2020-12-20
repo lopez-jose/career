@@ -65,6 +65,8 @@ public class BinaryTree {
         BinaryTree a = new BinaryTree();
         a = a.createBinaryTree();
         a.traverseInOrder(a.root);
+        a.traversePreOrder(a.root);
+        a.traversePostOrder(a.root);
 
     }
 
@@ -110,8 +112,25 @@ public class BinaryTree {
     public void traverseInOrder(Node node) {
         if (node != null) {
             traverseInOrder(node.left);
-            System.out.printf("%d node.left = %d, node.right = %d", node.value, node.left, node.right);
+            System.out.printf("%d ", node.value);
             traverseInOrder(node.right);
+        }
+    }
+
+    // Visits the root node, then the left subtree, the the right subtree
+    public void traversePreOrder(Node node) {
+        if (node != null) {
+            System.out.printf("%d ", node.value);
+            traversePreOrder(node.left);
+            traversePreOrder(node.right);
+        }
+    }
+
+    public void traversePostOrder(Node node) {
+        if (node != null) {
+            traversePostOrder(node.left);
+            traversePostOrder(node.right);
+            System.out.printf("%d ", node.value);
         }
     }
 
