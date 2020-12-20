@@ -105,5 +105,13 @@ public class BinaryTree {
         assertTrue(bt.containsNode(4));
         assertFalse(bt.containsNode(1));
     }
-    
+
+    @Test
+    public void givenABinaryTree_WhenDeletingElements_ThenTreeDoesNotContainThoseElements() {
+        BinaryTree bt = createBinaryTree();
+
+        assertTrue(bt.containsNode(9));
+        bt.delete(9);
+        assertFalse(bt.containsNode(9));
+    }
 }
