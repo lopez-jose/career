@@ -18,7 +18,12 @@ public class Higher {
      * @param y @ return the higher of the two values
      */
     public static int higher(int x, int y) {
-        return x > y ? x : y;
+        if (x > y) {
+            return x;
+
+        } else {
+            return y;
+        }
     }
 
     @Test
