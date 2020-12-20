@@ -61,6 +61,9 @@ public class BinaryTree {
          * 
          * 1 / \ null null
          */
+        System.out.println("Hello world");
+        BinaryTree bt = new BinaryTree();
+        bt.traverseInOrder(bt.root);
 
     }
 
@@ -102,6 +105,15 @@ public class BinaryTree {
         root = deleteRecursive(root, value);
     }
 
+    // Depth first search in-order traversal
+    public void traverseInOrder(Node node) {
+        if (node != null) {
+            traverseInOrder(node.left);
+            System.out.print(" " + node.value);
+            traverseInOrder(node.right);
+        }
+    }
+
     @Test
     public void givenABinaryTree_WhenAddingElements_ThenTreeContainsThoseElements() {
         BinaryTree bt = createBinaryTree();
@@ -117,5 +129,6 @@ public class BinaryTree {
         assertTrue(bt.containsNode(9));
         bt.delete(9);
         assertFalse(bt.containsNode(9));
+        traverseInOrder(root);
     }
 }
