@@ -98,6 +98,10 @@ public class BinaryTree {
         return root.left == null ? root.value : findSmallestValue(root.left);
     }
 
+    public void delete(int value) {
+        root = deleteRecursive(root, value);
+    }
+
     @Test
     public void givenABinaryTree_WhenAddingElements_ThenTreeContainsThoseElements() {
         BinaryTree bt = createBinaryTree();
