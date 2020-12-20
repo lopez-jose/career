@@ -64,6 +64,35 @@ public class BinaryTree {
 
     }
 
+    public Node deleteRecursive(Node current, int value) {
+        if (current == null) {
+            return null;
+        }
+        if (current.value == value) {
+            // If node has no children
+            if (current.left == null && current.right == null) {
+                return null;
+            }
+            // Case 2: Node only has 1 child
+            if (current.right == null) {
+                return current.left;
+            }
+            if (current.left == null) {
+                return current.right;
+            }
+        }
+        if (value < current.value) {
+            current.left = deleteRecursive(current.left, value);
+            return current;
+        }
+        current.right = deleteRecursive(current.right, value);
+        return current;
+    }
+
+    private int findSmallestValue(Node root) {
+        return root.left == null ? root.value : findSmallestValue(root.left);
+    }
+
     @Test
     public void givenABinaryTree_WhenAddingElements_ThenTreeContainsThoseElements() {
         BinaryTree bt = createBinaryTree();
