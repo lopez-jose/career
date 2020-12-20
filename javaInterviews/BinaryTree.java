@@ -110,7 +110,7 @@ public class BinaryTree {
     public void traverseInOrder(Node node) {
         if (node != null) {
             traverseInOrder(node.left);
-            System.out.print(" " + node.value);
+            System.out.printf("%d node.left = %d, node.right = %d", node.value, node.left, node.right);
             traverseInOrder(node.right);
         }
     }
