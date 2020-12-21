@@ -1,3 +1,7 @@
+import org.junit.Test;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 public class NQueenProblem {
     final int N = 4; // This sets the nxn matrix size
 
@@ -14,7 +18,7 @@ public class NQueenProblem {
         int i, j;
         // returns false if a queen cannot be placed in the row[]col[]
         for (i = 0; i < col; i++) {
-            if (board[i][col] == 1) {
+            if (board[row][i] == 1) {
                 return false;
             }
         }
@@ -31,5 +35,46 @@ public class NQueenProblem {
             }
         }
         return true;
+    }
+
+    // A recursive utlity function to solve N Queen problem
+    boolean solveNQUtil(int board[][], int col) {
+        if (col >= N) {
+            return true;
+        }
+        for (int i = 0; i < N; i++) {
+            if (isSafe(board, i, col)) {
+                board[i][col] = 1;
+            }
+            if (solveNQUtil(board, col + 1) == true) {
+                return true;
+            }
+            board[i][col] = 0; // backtrack
+        }
+        return false;
+    }
+
+    boolean solveNQ() {
+        int board[][] = { { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 } };
+
+        if (solveNQUtil(board, 0) == false) {
+            System.out.println("Solution does not exist");
+            return false;
+        }
+        // board has been modified to fit the standard laytout
+        printSolution(board);
+        return true;
+    }
+
+    public static void main(String[] args) {
+        NQueenProblem Queen = new NQueenProblem();
+        Queen.solveNQ();
+    }
+
+    @Test
+    public void givenBoardwithIncorrectly_Placed_Queens() {
+        NQueenProblem Queen = new NQueenProblem();
+        int board[][] = { { 1, 0, 0, 0 }, { 1, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 } };
+        assertTrue(Queen.isSafe(board, 0, 0));
     }
 }
