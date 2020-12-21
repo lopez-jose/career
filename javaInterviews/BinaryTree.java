@@ -1,6 +1,8 @@
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class BinaryTree {
     Node root;
@@ -51,6 +53,28 @@ public class BinaryTree {
         bt.add(7);
         bt.add(9);
         return bt;
+    }
+
+    public void traverseLevelOrder() {
+        if (root == null) {
+            return;
+        }
+        Queue<Node> nodes = new LinkedList<>();
+        nodes.add(root);
+        while (!nodes.isEmpty()) {
+            // removes a node the LinkedList nodes
+            Node node = nodes.remove();
+
+            System.out.println(" " + node.value);
+
+            if (node.left != null) {
+                nodes.add(node.left);
+            }
+            if (node.right != null) {
+                nodes.add(node.right);
+            }
+
+        }
     }
 
     public static void main(String[] args) {
