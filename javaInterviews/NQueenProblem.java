@@ -29,7 +29,7 @@ public class NQueenProblem {
             }
         }
         // now we check the lower diagonal on the left side
-        for (i = row, j = col; j >= 0 && i <= N; i++, j--) {
+        for (i = row, j = col; j >= 0 && i < N; i++, j--) {
             if (board[i][j] == 1) {
                 return false;
             }
@@ -45,11 +45,13 @@ public class NQueenProblem {
         for (int i = 0; i < N; i++) {
             if (isSafe(board, i, col)) {
                 board[i][col] = 1;
+
+                if (solveNQUtil(board, col + 1) == true) {
+                    return true;
+                }
+
+                board[i][col] = 0; // backtrack
             }
-            if (solveNQUtil(board, col + 1) == true) {
-                return true;
-            }
-            board[i][col] = 0; // backtrack
         }
         return false;
     }
@@ -74,7 +76,7 @@ public class NQueenProblem {
     @Test
     public void givenBoardwithIncorrectly_Placed_Queens() {
         NQueenProblem Queen = new NQueenProblem();
-        int board[][] = { { 1, 0, 0, 0 }, { 1, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 } };
+        int board[][] = { { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 } };
         assertTrue(Queen.isSafe(board, 0, 0));
     }
 }
