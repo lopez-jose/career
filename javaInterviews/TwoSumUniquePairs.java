@@ -4,7 +4,7 @@ public class TwoSumUniquePairs {
 
     public static void main(String[] args) {
 
-        int nums[] = { 1, 1, 2, 45, 46, 46, 46, 46 };
+        int nums[] = { 1, 1, 2, 45, 46, 46 };
         Arrays.sort(nums);
         printArray(nums);
     }
@@ -15,7 +15,8 @@ public class TwoSumUniquePairs {
         }
         System.out.println();
         System.out.println(classic_binary_search(nums, 46));
-        System.out.println(right_binary_search(nums, 46));
+        System.out.println(right_binary_search(nums, 37));
+        System.out.println(left_binary_search(nums, 46));
     }
 
     public static int classic_binary_search(int nums[], int limit) {
@@ -52,7 +53,9 @@ public class TwoSumUniquePairs {
 
     public static int left_binary_search(int nums[], int limit) {
         int low = 0, high = nums.length - 1, middle;
+
         while (low < high) {
+            System.out.printf("Low = %d, High = %d\n", low, high);
             middle = (low + high) / 2;
             if (limit > nums[middle]) {
                 low = middle + 1;
