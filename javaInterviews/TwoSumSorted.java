@@ -16,6 +16,13 @@ public class TwoSumSorted {
             System.out.print(output[i] + " ");
         }
 
+        String test = "test";
+        int start = 0;
+        while (test.charAt(start) != '\0') {
+            start++;
+        }
+        System.out.println(start);
+
     }
 
     public static int[] twoSum(int[] numbers, int target) {
