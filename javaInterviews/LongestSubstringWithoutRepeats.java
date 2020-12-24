@@ -29,8 +29,12 @@ public class LongestSubstringWithoutRepeats {
             if (length > maxLength) {
                 maxLength = length;
             }
+
             array[currentChar] = index++;
-            currentChar = s.charAt(index);
+            if(index<s.length())
+            {
+                currentChar = s.charAt(index);
+            }
         }
 
         return maxLength;
