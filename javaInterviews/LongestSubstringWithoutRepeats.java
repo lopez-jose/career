@@ -14,7 +14,8 @@ public class LongestSubstringWithoutRepeats {
         char currentChar = s.charAt(0);
         int index = 0;
         int length = 0; 
-        while(position<s.length())
+        int maxLength = 0; 
+        while(index<s.length())
         {
             if(array[currentChar]==-1)
             {
@@ -24,9 +25,13 @@ public class LongestSubstringWithoutRepeats {
                 {
                     length++;
                 }else{
-
+                    length = index-array[currentChar];
                 }
 
+            }
+            if(length > maxLength))
+            {
+                maxLength 
             }
         }
 
